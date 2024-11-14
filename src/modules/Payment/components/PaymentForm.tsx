@@ -1,66 +1,114 @@
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Form from "react-bootstrap/Form";
 import filterSvg from "../../../assets/filter.svg";
-import searchSvg from "../../../assets/search.svg";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+
+import InputTargetNumber from "./InputTargetNumber";
+import InputTextMask from "./InputTextMask";
+
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
+import SearchIcon from '@mui/icons-material/Search';
+import InputMoney from "./InputMoney";
+import { useFormikContext } from "formik";
 
 const PaymentForm = () => {
+  const { handleSubmit } = useFormikContext();
+
   return (
-    <Container className="bg-white shadow-sm rounded px-4 py-3 mb-5">
-      <div className="d-flex align-items-center mb-2">
-        <div className="p-2 bg-primary" style={{ marginLeft: "-45px" }}>
-          <img src={filterSvg} width={30} height={40} />
-        </div>
-        <p className="text-uppercase text-primary fw-bolder m-0 ms-3">
-          Filtrar facturas
-        </p>
-      </div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <CardContainer srcImg={filterSvg} title='Filtrar factura'>
+          <Row>
+            <Col xs={12} md={6} lg={4}>
+              <InputTargetNumber />
+            </Col>
+            <Col xs={12} md={6} lg={4}>
 
-      <Row>
-        <Col xs={4}>
-          <FloatingContainer label="Numero de tarjeta">
-            <Form.Control type="text" placeholder="" />
-          </FloatingContainer>
-        </Col>
-        <Col xs={4}>
-          <FloatingContainer label="Tipo de documento">
-            <Form.Control type="text" placeholder="" />
-          </FloatingContainer>
-        </Col>
-        <Col xs={4}>
-          <FloatingContainer label="Número de documento (con guiones)">
-            <Form.Control type="text" placeholder="" />
-          </FloatingContainer>
-        </Col>
+              <FormControl fullWidth variant="filled" sx={{ m: 1 }}>
+                <InputLabel id="docType">Tipo de documento</InputLabel>
+                <Select
+                  labelId="docType"
+                  id="docType"
+                  defaultValue={1}
+                >
+                  <MenuItem value={1}>Cédula de identidad</MenuItem>
+                </Select>
+              </FormControl>
+            </Col>
+            <Col xs={12} md={6} lg={4}>
+              <InputTextMask />
+            </Col>
 
-        <Col xs={4}>
-          <FloatingContainer label="Primer nombre">
-            <Form.Control type="text" placeholder="" />
-          </FloatingContainer>
-        </Col>
+            <Col xs={12} md={6} lg={4}>
+              <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+                <TextField
+                  id="targetNumber"
+                  label="Primer nombre"
+                  variant="filled"
+                />
+              </FormControl>
+            </Col>
 
-        <Col xs={4}>
-          <FloatingContainer label="Primer apellido">
-            <Form.Control type="text" placeholder="" />
-          </FloatingContainer>
-        </Col>
-      </Row>
+            <Col xs={12} md={6} lg={4}>
+              <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+                <TextField
+                  id="targetNumber"
+                  label="Primer apellido"
+                  variant="filled"
+                />
+              </FormControl>
+            </Col>
+          </Row>
 
-      <Button className="rounded-pill fw-semibold pe-3">
-        <img src={searchSvg} width={20} height={20} className="me-2 mb-1" />
-        BUSCAR
-      </Button>
-    </Container>
+          <Button type="submit" variant="contained" startIcon={<SearchIcon />} sx={{ m: 1 }}>
+            BUSCAR
+          </Button>
+        </CardContainer>
+
+        <CardContainer title='Datos de pago' srcImg={filterSvg}>
+          <Row>
+            <Col xs={12} md={6} lg={4}>
+              <FormControl fullWidth variant="filled" sx={{ m: 1 }}>
+                <InputLabel id="typeCurrency">Tipo de moneda</InputLabel>
+                <Select
+                  labelId="typeCurrency"
+                  id="typeCurrency"
+                >
+                  <MenuItem value={1}>Cordoba</MenuItem>
+                  <MenuItem value={2}>Dolar</MenuItem>
+                </Select>
+              </FormControl>
+            </Col>
+
+            <Col xs={12} md={6} lg={4}>
+              <InputMoney />
+            </Col>
+          </Row>
+        </CardContainer>
+      </form>
+    </>
   );
 };
 
 export default PaymentForm;
 
-const FloatingContainer = ({ children, label }: any) => (
-  <FloatingLabel controlId="floatingTextarea" label={label} className="mb-3">
+const CardContainer = ({ children, srcImg, title }: any) => {
+  return <Container className="bg-white shadow-sm rounded px-4 py-3 mb-5">
+    <div className="d-flex align-items-center mb-2">
+      <div className="p-2 bg-primary" style={{ marginLeft: "-45px" }}>
+        <img src={srcImg} width={25} />
+      </div>
+      <p className="text-uppercase text-primary fw-bolder m-0 ms-3">
+        {title}
+      </p>
+    </div>
+
     {children}
-  </FloatingLabel>
-);
+  </Container>
+}

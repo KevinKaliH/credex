@@ -10,8 +10,13 @@ const FormInputsView = () => {
         </div>
       </div>
 
-      <div className="bg-white mt-3">
-        <p className="fw-semibold text-primary mx-3">SERVICIO A PAGAR</p>
+      <div className="bg-white mt-3 grid">
+        <div className="border-bottom px-3 py-2">
+          <p className="fw-semibold text-primary m-0">SERVICIO A PAGAR</p>
+        </div>
+        <div className="p-5">
+          <img src="https://logosnicas.com/wp-content/uploads/2022/10/credex.png" width={120} />
+        </div>
       </div>
     </section>
   );
