@@ -1,22 +1,19 @@
-import { useFormik, useFormikContext } from "formik";
-import * as yup from "yup";
-
-const validationSchema = yup.object({
-  targetNumber: yup.string().required(),
-});
+import { useFormikContext } from "formik";
+import { PaymentFormModel } from "../utils/paymentForm.model";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 const PaymentFormHelper = () => {
-  const formik = useFormik({
-    initialValues: {
-      targetNumber: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values));
-    },
-  });
+  const form = useFormikContext<PaymentFormModel>();
 
-  return formik;
+  const onChangeDocTypeId = (e: SelectChangeEvent<number>) => {
+    form.handleChange(e);
+    form.setFieldValue("documentValue", "");
+  };
+
+  return {
+    form,
+    onChangeDocTypeId,
+  };
 };
 
 export default PaymentFormHelper;
