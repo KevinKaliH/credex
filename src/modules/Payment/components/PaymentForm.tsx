@@ -30,7 +30,7 @@ interface Props {
 }
 
 const PaymentForm = ({ visibleAlert, existQuery }: Props) => {
-  const { form, onChangeDocTypeId, currencyPrefix } = PaymentFormHelper();
+  const { form, onChangeDocTypeId, currencyPrefix, maskDocument } = PaymentFormHelper();
 
   return (
     <>
@@ -77,7 +77,7 @@ const PaymentForm = ({ visibleAlert, existQuery }: Props) => {
                 slotProps={{
                   input: {
                     inputProps: {
-                      mask: '###-######-###L'
+                      mask: maskDocument
                     },
                     inputComponent: TextMaskCustom as any
                   }

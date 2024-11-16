@@ -10,6 +10,10 @@ export const TypeDocumentList: ISelectValue[] = [
     value: 1,
     label: "Cédula de identidad",
     mask: "###-######-####L",
+    data: {
+      regex: /^\d{3}-\d{6}-\d{4}[A-Za-z]$/,
+      errorMessage: "Ejemplo valor: 001-000000-0000A",
+    },
   },
 ];
 

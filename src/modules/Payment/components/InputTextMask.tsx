@@ -16,7 +16,7 @@ export const TextMaskCustom = forwardRef<HTMLInputElement, CustomProps>(
                 {...other}
                 // mask="###-######-####L"
                 definitions={{
-                    '#': /[1-9]/,
+                    '#': /[0-9]/,
                     'L': /[A-Za-z]/
                 }}
                 inputRef={ref}

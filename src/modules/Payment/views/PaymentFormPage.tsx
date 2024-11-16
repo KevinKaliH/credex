@@ -19,10 +19,12 @@ const PaymentFormPage = () => {
           <section className="leftForm mx-4 mt-3">
             <PaymentForm existQuery={existQuery} visibleAlert={visibleAlert} />
           </section>
+
           <section className="rightForm p-3 bg-primary d-none d-md-block" style={{ minWidth: '400px', maxWidth: '400px' }}>
             <FormInputsView />
           </section>
-          <ModalConfirmPayment showModal={true} handleActionModalConfirm={() => { }} />
+
+          <ModalConfirmPayment showModal={false} handleActionModalConfirm={() => { }} />
         </div>
       </Form>
     </Formik>

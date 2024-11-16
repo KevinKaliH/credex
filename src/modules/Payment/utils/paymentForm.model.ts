@@ -16,4 +16,5 @@ export const InitialFormModal: PaymentFormModel = {
   firstName: "",
   lastName: "",
   currencyId: undefined,
+  valuePay: undefined,
 };

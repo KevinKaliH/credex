@@ -37,7 +37,7 @@ const ModalConfirmPayment = ({ handleActionModalConfirm, showModal }: Props) => 
                     </div>
                     <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3" style={{ justifySelf: 'end' }}>
                         <Button variant="text" color="primary" sx={{ borderRadius: "50px" }}>Cancelar</Button>
-                        <Button type='submit' variant="contained" color="secondary" sx={{ borderRadius: "50px" }}>Continuar</Button>
+                        <Button variant="contained" color="secondary" sx={{ borderRadius: "50px" }}>Continuar</Button>
                     </div>
                 </Box>
             </Fade>

@@ -2,7 +2,7 @@ import { useFormikContext } from "formik";
 import { PaymentFormModel } from "../utils/paymentForm.model";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useMemo } from "react";
-import { CurrencyList } from "../utils/const";
+import { CurrencyList, TypeDocumentList } from "../utils/const";
 
 const PaymentFormHelper = () => {
   const form = useFormikContext<PaymentFormModel>();
@@ -18,8 +18,14 @@ const PaymentFormHelper = () => {
     [form.values.currencyId]
   );
 
+  const maskDocument = useMemo(
+    () => TypeDocumentList.find((i) => i.value == form.values.docTypeId)?.mask,
+    [form.values.docTypeId]
+  );
+
   return {
     form,
+    maskDocument,
     currencyPrefix,
     onChangeDocTypeId,
   };

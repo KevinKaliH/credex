@@ -2,6 +2,7 @@ import * as yup from "yup";
 import { InitialFormModal, PaymentFormModel } from "../utils/paymentForm.model";
 import { useMemo, useState } from "react";
 import { FormikHelpers } from "formik";
+import { TypeDocumentList } from "../utils/const";
 
 const PaymentFormPageHelper = () => {
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -27,11 +28,23 @@ const PaymentFormPageHelper = () => {
         currencyId: yup.number().required(),
 
         docTypeId: yup.number().required(),
-        documentValue: yup.string().required(),
+        documentValue: yup
+          .string()
+          .when("docTypeId", (docTypeId: any, schema) => {
+            const selectedDoc = TypeDocumentList.find(
+              (i) => i.value == docTypeId
+            );
+            if (!selectedDoc) return schema.required();
+
+            return schema
+              .matches(selectedDoc.data.regex, selectedDoc.data.errorMessage)
+              .required();
+          }),
         firstName: yup.string().required(),
         lastName: yup.string().required(),
 
         valuePay: yup.lazy((_) => {
+          console.log(existQuery);
           return existQuery
             ? yup.number().required()
             : yup.number().notRequired();
