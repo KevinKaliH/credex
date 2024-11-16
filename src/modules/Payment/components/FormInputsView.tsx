@@ -1,9 +1,11 @@
 import { useFormikContext } from "formik";
 import { Fragment } from "react/jsx-runtime";
-import { FORM_LABELS } from "../utils/const";
+import { CurrencyList, FORM_LABELS, TypeDocumentList } from "../utils/const";
 import Grid2 from "@mui/material/Grid2";
+import { memo, useMemo } from "react";
+import { PaymentFormModel } from "../utils/paymentForm.model";
 
-const FormInputsView = () => {
+const FormInputsView = memo(() => {
   return (
     <section id="viewData bg-primary">
       <div className="bg-white">
@@ -26,29 +28,50 @@ const FormInputsView = () => {
       </div>
     </section>
   );
-};
+});
 
 export default FormInputsView;
 
 const InputVisibleData = () => {
-  const { values } = useFormikContext();
+  const { values } = useFormikContext<PaymentFormModel>();
 
-  const filteredValues = Object.entries(values ?? {}).filter(
-    ([_, value]) => value !== null && value !== '' && value !== undefined
-  );
+  const filteredValues = useMemo(() => formatKeyValue(values), [values]);
 
   return (<Grid2 container rowSpacing={1} columnSpacing={1}>
     {
       filteredValues.map(value => (
-        <Fragment key={value[0]}>
+        <Fragment key={value.key}>
           <Grid2 size={6}>
-            <p className='m-0'>{FORM_LABELS[value[0]]}</p>
+            <p className='m-0'>{FORM_LABELS[value.key]}</p>
           </Grid2>
           <Grid2 size={6}>
-            <p className="m-0 text-end text-truncate">{value[1]}</p>
+            <p className="m-0 text-end text-truncate">{value.val}</p>
           </Grid2>
         </Fragment>
       ))
     }
   </Grid2>)
+}
+
+function formatKeyValue(objectValues: any) {
+  return Object.entries(objectValues ?? {})
+    .filter(
+      ([_, value]) => value !== null && value !== '' && value !== undefined
+    ) // no empty data
+    .map(value => {
+      let { "0": key, "1": val } = value;
+
+      if (key == 'docTypeId')
+        val = TypeDocumentList.find(i => i.value == val)!.label
+      else if (key == 'currencyId')
+        val = CurrencyList.find(i => i.value == val)!.data.prefix + ' $';
+      else if (key == 'targetNumber')
+        val = objectValues['targetNumberMask'];
+
+      return {
+        key,
+        val
+      }
+    }) // id matches
+    .filter(i => i.key in FORM_LABELS) // key exist in labels view
 }

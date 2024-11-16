@@ -7,7 +7,8 @@ import { TextMaskCustom } from './InputTextMask';
 import { PaymentFormModel } from '../utils/paymentForm.model';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { NUMBER_TARGET_SHOW_CHARS } from '../utils/const';
 
 const InputTargetNumber = () => {
     const form = useFormikContext<PaymentFormModel>();
@@ -15,6 +16,13 @@ const InputTargetNumber = () => {
 
     const onClickVisible = () => {
         setShowPassword(pre => !pre);
+    }
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        form.handleChange(event);
+        const value = event.target.value;
+
+        form.setFieldValue('targetNumberMask', maskInput(value));
     }
 
     return <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
@@ -25,7 +33,7 @@ const InputTargetNumber = () => {
             value={form.values.targetNumber}
             fullWidth
             variant='filled'
-            onChange={form.handleChange}
+            onChange={handleChange}
             onBlur={form.handleBlur}
             error={form.touched.targetNumber && Boolean(form.errors.targetNumber)}
             helperText={form.touched.targetNumber && form.errors.targetNumber}
@@ -49,3 +57,15 @@ const InputTargetNumber = () => {
 }
 
 export default InputTargetNumber;
+
+function maskInput(textValue: string) {
+    const text = textValue.replace(/\s+/g, ''); // remove space
+    if (text.length <= NUMBER_TARGET_SHOW_CHARS)
+        return text;
+
+    const length = text.length;
+    const textSecurity = '*'.repeat(length - NUMBER_TARGET_SHOW_CHARS) + text.slice(-NUMBER_TARGET_SHOW_CHARS);
+    const temp = textSecurity.replace(/(.{4})(?=.)/g, '$1 ');
+
+    return temp;
+}

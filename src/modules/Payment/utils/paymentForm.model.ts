@@ -5,6 +5,7 @@ export interface PaymentFormModel {
   firstName: string;
   lastName: string;
   currencyId: number | undefined;
+  targetNumberMask?: string;
 }
 
 export const InitialFormModal: PaymentFormModel = {
