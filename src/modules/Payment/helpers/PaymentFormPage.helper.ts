@@ -27,20 +27,25 @@ const validationSchema = yup.object({
 
 const PaymentFormPageHelper = () => {
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [existQuery, setExistQuery] = useState(false);
 
   const onSubmit = async (values: any) => {
-    console.log("working");
-
-    const resp = await tempPost(values);
-    console.log(resp);
+    await tempPost(values);
     setVisibleAlert(true);
+    setExistQuery(true);
+  };
+
+  const closeAlert = () => {
+    setVisibleAlert(false);
   };
 
   return {
     onSubmit,
+    closeAlert,
+    existQuery,
+    visibleAlert,
     validationSchema,
     InitialFormModal,
-    visibleAlert,
   };
 };
 

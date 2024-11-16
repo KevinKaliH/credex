@@ -22,7 +22,7 @@ const FormInputsView = memo(() => {
         <div className="border-bottom px-3 py-2">
           <p className="fw-semibold text-primary m-0">SERVICIO A PAGAR</p>
         </div>
-        <div className="p-5">
+        <div className="p-5 text-center">
           <img src="https://logosnicas.com/wp-content/uploads/2022/10/credex.png" width={120} />
         </div>
       </div>
@@ -64,7 +64,7 @@ function formatKeyValue(objectValues: any) {
       if (key == 'docTypeId')
         val = TypeDocumentList.find(i => i.value == val)!.label
       else if (key == 'currencyId')
-        val = CurrencyList.find(i => i.value == val)!.data.prefix + ' $';
+        val = CurrencyList.find(i => i.value == val)!.data.prefix + '$';
       else if (key == 'targetNumber')
         val = objectValues['targetNumberMask'];
 

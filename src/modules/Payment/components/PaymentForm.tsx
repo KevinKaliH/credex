@@ -14,15 +14,12 @@ import { CurrencyList, TypeDocumentList } from "../utils/const";
 import PaymentFormHelper from "../helpers/PaymentForm.helper";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import { Alert, CircularProgress } from "@mui/material";
-import InputMoney from "./InputMoney";
+import { CircularProgress, InputAdornment } from "@mui/material";
+import { NumericFormatCustom } from "./InputMoney";
 import { TextMaskCustom } from "./InputTextMask";
 import InputTargetNumber from "./InputTargetNumber";
 
-interface Props {
-  visibleAlert: boolean;
-}
-const PaymentForm = ({ visibleAlert }: Props) => {
+const PaymentForm = () => {
   const { form, onChangeDocTypeId } = PaymentFormHelper();
 
   return (
@@ -143,12 +140,28 @@ const PaymentForm = ({ visibleAlert }: Props) => {
         </Button>
       </CardContainer>
 
-      {visibleAlert && <NotFoundAlert />}
-
-      <CardContainer title='Dato de pago' icon={<MonetizationOnIcon style={{ color: 'white' }} />}>
+      <CardContainer title='Datos de pago' icon={<MonetizationOnIcon style={{ color: 'white' }} />}>
         <Row>
           <Col xs={12} md={6} lg={4}>
-            <InputMoney />
+            <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+              <TextField
+                id="valuePay"
+                name="valuePay"
+                label="Monto a pagar"
+                variant="filled"
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                error={form.touched.valuePay && Boolean(form.errors.valuePay)}
+                helperText={form.touched.valuePay && form.errors.valuePay}
+                slotProps={{
+                  input: {
+                    startAdornment: <InputAdornment position="start">C$</InputAdornment>,
+                    inputComponent: NumericFormatCustom as any,
+                  },
+                }}
+              />
+            </FormControl>
+
           </Col>
         </Row>
       </CardContainer>
@@ -175,15 +188,3 @@ const CardContainer = ({ children, icon, title }: any) => {
   );
 };
 
-// const SuccessAlert = () => {
-//   return <Alert variant="filled" severity="success" sx={{ marginBottom: 2 }}>
-//     <AlertTitle>Cliente encontrado</AlertTitle>
-//     Tarjeta: '123124897329847283' | Cliente: DANNA JAEN
-//   </Alert>
-// }
-
-const NotFoundAlert = () => {
-  return <Alert variant="filled" severity="error" sx={{ marginBottom: 2 }}>
-    Cliente no encontrado
-  </Alert>
-}
