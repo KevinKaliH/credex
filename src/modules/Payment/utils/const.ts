@@ -26,4 +26,13 @@ export const CurrencyList: ISelectValue[] = [
   },
 ];
 
-export const NUMBER_TARGET_HIDE_CHARS = 4
+export const NUMBER_TARGET_HIDE_CHARS = 4;
+
+export const FORM_LABELS: { [key: string]: string } = {
+  targetNumber: "Número de tarjeta",
+  docTypeId: "Tipo de documento",
+  documentValue: "Numero de documento",
+  firstName: "Primer nombre",
+  lastName: "Primer apellido",
+  currencyId: "Tipo de moneda",
+};

@@ -4,21 +4,22 @@ import { Form, Formik } from "formik";
 import PaymentFormPageHelper from "../helpers/PaymentFormPage.helper";
 
 const PaymentFormPage = () => {
-  const { InitialFormModal, onSubmit, validationSchema } = PaymentFormPageHelper();
+  const { InitialFormModal, onSubmit, validationSchema, visibleAlert } = PaymentFormPageHelper();
 
   return (
     <Formik initialValues={InitialFormModal} onSubmit={onSubmit} validationSchema={validationSchema}>
-      <Form>
-        <div className="paymentFormPage">
-          <div className="mx-4 mt-3">
-            <PaymentForm />
-          </div>
-          <div className="p-3 bg-primary d-none d-md-block">
-            <FormInputsView />
-          </div>
+      <div className="paymentFormPage">
+        <div className="mx-4 mt-3">
+          <Form>
+            <PaymentForm visibleAlert={visibleAlert} />
+          </Form>
         </div>
-      </Form>
+        <div className="p-3 bg-primary d-none d-md-block" style={{ minWidth: '400px' }}>
+          <FormInputsView />
+        </div>
+      </div>
     </Formik>
+
   );
 };
 

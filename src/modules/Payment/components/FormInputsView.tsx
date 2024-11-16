@@ -1,3 +1,8 @@
+import { useFormikContext } from "formik";
+import { Fragment } from "react/jsx-runtime";
+import { FORM_LABELS } from "../utils/const";
+import Grid2 from "@mui/material/Grid2";
+
 const FormInputsView = () => {
   return (
     <section id="viewData bg-primary">
@@ -6,7 +11,8 @@ const FormInputsView = () => {
           <p className="fw-semibold text-primary m-0">RESUMEN DE TRANSACCIÓN</p>
         </div>
         <div className="p-2">
-          <p className="border-top">Total</p>
+          <InputVisibleData />
+          <p className="border-top mt-3">Total</p>
         </div>
       </div>
 
@@ -23,3 +29,26 @@ const FormInputsView = () => {
 };
 
 export default FormInputsView;
+
+const InputVisibleData = () => {
+  const { values } = useFormikContext();
+
+  const filteredValues = Object.entries(values ?? {}).filter(
+    ([_, value]) => value !== null && value !== '' && value !== undefined
+  );
+
+  return (<Grid2 container rowSpacing={1} columnSpacing={1} maxWidth={'400px'} minWidth={'300px'}>
+    {
+      filteredValues.map(value => (
+        <Fragment key={value[0]}>
+          <Grid2 size={6}>
+            <p className='m-0'>{FORM_LABELS[value[0]]}</p>
+          </Grid2>
+          <Grid2 size={6}>
+            <p className="m-0 text-end text-truncate">{value[1]}</p>
+          </Grid2>
+        </Fragment>
+      ))
+    }
+  </Grid2>)
+}

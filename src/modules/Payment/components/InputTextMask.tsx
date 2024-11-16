@@ -8,15 +8,14 @@ const InputTextMask = () => {
     const [value, setValue] = useState('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
-
         setValue(event.target.value);
     };
 
     return <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
         <TextField
             label='Numero de documento'
-            name={'documentValue'}
+            name='documentValue'
+            id='documentValue'
             value={value}
             fullWidth
             variant='filled'
@@ -34,15 +33,17 @@ export default InputTextMask
 interface CustomProps {
     onChange: (event: { target: { name: string; value: string } }) => void;
     name: string;
+    mask?: string;
 }
 
 export const TextMaskCustom = forwardRef<HTMLInputElement, CustomProps>(
     function TextMaskCustom(props, ref) {
         const { onChange, ...other } = props;
+
         return (
             <IMaskInput
                 {...other}
-                mask="###-######-####L"
+                // mask="###-######-####L"
                 definitions={{
                     '#': /[1-9]/,
                     'L': /[A-Za-z]/

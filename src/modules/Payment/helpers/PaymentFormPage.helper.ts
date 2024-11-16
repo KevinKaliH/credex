@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { InitialFormModal } from "../utils/paymentForm.model";
+import { useState } from "react";
 
 const validationSchema = yup.object({
   targetNumber: yup
@@ -15,15 +16,32 @@ const validationSchema = yup.object({
 });
 
 const PaymentFormPageHelper = () => {
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const [visibleAlert, setVisibleAlert] = useState(false);
+
+  const onSubmit = async (values: any) => {
+    console.log("working");
+
+    const resp = await tempPost(values);
+    console.log(resp);
+    setVisibleAlert(true);
   };
 
   return {
     onSubmit,
     validationSchema,
     InitialFormModal,
+    visibleAlert,
   };
 };
 
 export default PaymentFormPageHelper;
+
+function tempPost(values: any) {
+  console.log(values);
+
+  return new Promise((res: any, _: any) => {
+    setTimeout(() => {
+      res({ ok: true });
+    }, 600);
+  });
+}
