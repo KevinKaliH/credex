@@ -27,10 +27,18 @@ import { useState } from "react";
 interface Props {
   visibleAlert: boolean;
   existQuery: boolean;
+  buttonSearchId: string;
+  onClickSearch: any;
 }
 
-const PaymentForm = ({ visibleAlert, existQuery }: Props) => {
+const PaymentForm = ({ visibleAlert, existQuery, onClickSearch, buttonSearchId }: Props) => {
   const { form, onChangeDocTypeId, currencyPrefix, maskDocument } = PaymentFormHelper();
+
+  const onClickSearchLocal = () => {
+    onClickSearch(form);
+  }
+
+  const searchButtonSubmitting = form.isSubmitting && buttonSearchId == 'search';
 
   return (
     <>
@@ -138,12 +146,11 @@ const PaymentForm = ({ visibleAlert, existQuery }: Props) => {
           </Col>
         </Row>
 
-
         <Button
-          type="submit"
           variant="contained"
-          startIcon={form.isSubmitting ? <CircularProgress size={18} /> : <SearchIcon />}
-          disabled={form.isSubmitting}
+          startIcon={searchButtonSubmitting ? <CircularProgress size={18} /> : <SearchIcon />}
+          disabled={searchButtonSubmitting}
+          onClick={onClickSearchLocal}
           sx={{
             m: 1,
             borderRadius: "50px"

@@ -32,7 +32,6 @@ export function formSchema(existQuery: boolean) {
     lastName: yup.string().required(),
 
     valuePay: yup.lazy((_) => {
-      console.log(existQuery);
       return existQuery ? yup.number().required() : yup.number().notRequired();
     }),
   });

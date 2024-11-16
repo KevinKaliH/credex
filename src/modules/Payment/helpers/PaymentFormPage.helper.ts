@@ -3,44 +3,90 @@ import {
   PaymentFormModel,
 } from "@payment/utils/paymentForm.model";
 import { useMemo, useState } from "react";
-import { FormikHelpers } from "formik";
+import { FormikHelpers, FormikProps } from "formik";
 import { formSchema } from "@payment/utils/form.schema";
+import paymentApi from "@/apis/payment.api";
+
+interface IPaymentFormState {
+  existQuery: boolean;
+  visibleAlert: boolean;
+  submitButtonId: string;
+  visibleConfirmModal: boolean;
+}
+
+const initialStatePage: IPaymentFormState = {
+  existQuery: false,
+  submitButtonId: "",
+  visibleAlert: false,
+  visibleConfirmModal: false,
+};
 
 const PaymentFormPageHelper = () => {
-  const [visibleAlert, setVisibleAlert] = useState(false);
-  const [existQuery, setExistQuery] = useState(false);
+  const [statePage, setPageState] =
+    useState<IPaymentFormState>(initialStatePage);
 
-  const validationSchema = useMemo(() => formSchema(existQuery), [existQuery]);
+  const validationSchema = useMemo(
+    () => formSchema(statePage.existQuery),
+    [statePage.existQuery]
+  );
 
   const onSubmit = async (
     values: PaymentFormModel,
     _: FormikHelpers<PaymentFormModel>
   ) => {
-    await tempPost(values);
-    setVisibleAlert(true);
-    setExistQuery(true);
+    if (statePage.submitButtonId == "search") {
+      await paymentApi.searchClient(values);
+
+      setPageState({ ...statePage, visibleAlert: true, existQuery: true });
+    } else if (statePage.submitButtonId == "confirm") {
+      console.log("this is the final step");
+    }
+  };
+
+  const onClickSearch = (formik: FormikProps<PaymentFormModel>) => {
+    setPageState({ ...statePage, submitButtonId: "search" });
+    formik.submitForm();
+  };
+
+  const onClickDisplayModal = (formik: FormikProps<PaymentFormModel>) => {
+    formik.validateForm();
+    if (!formik.isValid || !statePage.existQuery) return;
+
+    setPageState({ ...statePage, visibleConfirmModal: true });
+  };
+
+  const onClickCancelPayment = () => {
+    console.log("cancel form");
+  };
+
+  const onClickHideModal = () =>
+    setPageState({ ...statePage, visibleConfirmModal: false });
+
+  const onClickAcceptModal = () =>
+    setPageState({ ...statePage, visibleConfirmModal: false });
+
+  const onClickConfimPayment = (formik: FormikProps<PaymentFormModel>) => {
+    setPageState({ ...statePage, submitButtonId: "confirm" });
+    formik.submitForm();
   };
 
   const closeAlert = () => {
-    setVisibleAlert(false);
+    setPageState({ ...statePage, visibleAlert: false });
   };
 
   return {
     onSubmit,
+    statePage,
     closeAlert,
-    existQuery,
-    visibleAlert,
+    onClickSearch,
     validationSchema,
     InitialFormModal,
+    onClickHideModal,
+    onClickAcceptModal,
+    onClickDisplayModal,
+    onClickConfimPayment,
+    onClickCancelPayment,
   };
 };
 
 export default PaymentFormPageHelper;
-
-function tempPost(_: any) {
-  return new Promise((res: any, _: any) => {
-    setTimeout(() => {
-      res({ ok: true });
-    }, 600);
-  });
-}

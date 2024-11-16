@@ -6,11 +6,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import Button from "@mui/material/Button";
 
 interface Props {
-    handleActionModalConfirm: () => void;
+    onClickHideModal: any;
+    onClickAcceptModal: any;
     showModal: boolean;
 }
 
-const ModalConfirmPayment = ({ handleActionModalConfirm, showModal }: Props) => {
+const ModalConfirmPayment = ({ onClickAcceptModal, onClickHideModal, showModal }: Props) => {
     return (
         <Modal
             disableEnforceFocus
@@ -19,7 +20,7 @@ const ModalConfirmPayment = ({ handleActionModalConfirm, showModal }: Props) => 
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             open={showModal}
-            onClose={handleActionModalConfirm}
+            onClose={onClickHideModal}
             closeAfterTransition
             slots={{ backdrop: Backdrop }}
             slotProps={{
@@ -36,8 +37,8 @@ const ModalConfirmPayment = ({ handleActionModalConfirm, showModal }: Props) => 
                         <p>¿Desea efectuar el pago?</p>
                     </div>
                     <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3" style={{ justifySelf: 'end' }}>
-                        <Button variant="text" color="primary" sx={{ borderRadius: "50px" }}>Cancelar</Button>
-                        <Button variant="contained" color="secondary" sx={{ borderRadius: "50px" }}>Continuar</Button>
+                        <Button variant="text" color="primary" sx={{ borderRadius: "50px" }} onClick={onClickHideModal}>Cancelar</Button>
+                        <Button variant="contained" color="secondary" sx={{ borderRadius: "50px" }} onClick={onClickAcceptModal}>Continuar</Button>
                     </div>
                 </Box>
             </Fade>
