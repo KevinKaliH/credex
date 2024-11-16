@@ -10,8 +10,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import SearchIcon from "@mui/icons-material/Search";
-import { CurrencyList, TypeDocumentList } from "../utils/const";
-import PaymentFormHelper from "../helpers/PaymentForm.helper";
+import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
+import PaymentFormHelper from "@payment/helpers/PaymentForm.helper";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { CircularProgress, InputAdornment } from "@mui/material";

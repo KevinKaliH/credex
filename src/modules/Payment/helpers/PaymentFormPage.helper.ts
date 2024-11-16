@@ -1,8 +1,8 @@
 import * as yup from "yup";
-import { InitialFormModal, PaymentFormModel } from "../utils/paymentForm.model";
+import { InitialFormModal, PaymentFormModel } from "@payment/utils/paymentForm.model";
 import { useMemo, useState } from "react";
 import { FormikHelpers } from "formik";
-import { TypeDocumentList } from "../utils/const";
+import { TypeDocumentList } from "@payment/utils/const";
 
 const PaymentFormPageHelper = () => {
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -78,7 +78,7 @@ const PaymentFormPageHelper = () => {
 
 export default PaymentFormPageHelper;
 
-function tempPost(values: any) {
+function tempPost(_: any) {
   return new Promise((res: any, _: any) => {
     setTimeout(() => {
       res({ ok: true });

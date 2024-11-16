@@ -1,9 +1,10 @@
-import PaymentForm from "../components/PaymentForm";
-import FormInputsView from "../components/FormInputsView";
 import { Form, Formik } from "formik";
-import PaymentFormPageHelper from "../helpers/PaymentFormPage.helper";
-import FormTopBar from "../components/FormTopBar";
-import ModalConfirmPayment from "../components/ModalConfirmPayment";
+
+import PaymentFormPageHelper from "@payment/helpers/PaymentFormPage.helper";
+import FormTopBar from "@payment/components/FormTopBar";
+import ModalConfirmPayment from "@payment/components/ModalConfirmPayment";
+import PaymentForm from "@payment/components/PaymentForm";
+import FormInputsView from "@payment/components/FormInputsView";
 
 const PaymentFormPage = () => {
   const { InitialFormModal, onSubmit, validationSchema, visibleAlert, existQuery } = PaymentFormPageHelper();

@@ -1,9 +1,9 @@
 import { useFormikContext } from "formik";
 import { Fragment } from "react/jsx-runtime";
-import { CurrencyList, FORM_LABELS, TypeDocumentList } from "../utils/const";
+import { CurrencyList, FORM_LABELS, TypeDocumentList } from "@payment/utils/const";
 import Grid2 from "@mui/material/Grid2";
 import { memo, useMemo } from "react";
-import { PaymentFormModel } from "../utils/paymentForm.model";
+import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 
 const FormInputsView = memo(() => {
   return (

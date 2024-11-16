@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-const PaymentFormPage = lazy(() => import("./modules/Payment/views/PaymentFormPage"));
-const PaymentBill = lazy(() => import("./modules/Payment/views/PaymentBill"));
+const PaymentFormPage = lazy(() => import("./modules/Payment/page/PaymentForm.page"));
+const PaymentBillPage = lazy(() => import("./modules/PaymentBill/page/PaymentBill.page"));
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     path: "/bill",
     element: (
       <Suspense fallback={<>loading...</>}>
-        <PaymentBill />
+        <PaymentBillPage />
       </Suspense>
     ),
   },

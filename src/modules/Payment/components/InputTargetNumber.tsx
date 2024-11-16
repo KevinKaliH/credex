@@ -4,11 +4,11 @@ import IconButton from '@mui/material/IconButton';
 
 import { useFormikContext } from 'formik';
 import { TextMaskCustom } from './InputTextMask';
-import { PaymentFormModel } from '../utils/paymentForm.model';
+import { PaymentFormModel } from '@payment/utils/paymentForm.model';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import { ChangeEvent, useState } from 'react';
-import { NUMBER_TARGET_SHOW_CHARS } from '../utils/const';
+import { NUMBER_TARGET_SHOW_CHARS } from '@payment/utils/const';
 
 const InputTargetNumber = () => {
     const form = useFormikContext<PaymentFormModel>();

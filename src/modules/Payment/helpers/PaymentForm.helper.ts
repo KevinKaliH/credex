@@ -1,8 +1,8 @@
 import { useFormikContext } from "formik";
-import { PaymentFormModel } from "../utils/paymentForm.model";
+import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useMemo } from "react";
-import { CurrencyList, TypeDocumentList } from "../utils/const";
+import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
 
 const PaymentFormHelper = () => {
   const form = useFormikContext<PaymentFormModel>();
