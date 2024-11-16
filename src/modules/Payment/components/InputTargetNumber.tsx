@@ -1,31 +1,49 @@
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
+import IconButton from '@mui/material/IconButton';
+
 import { useFormikContext } from 'formik';
-import { ChangeEvent, useState } from 'react';
+import { TextMaskCustom } from './InputTextMask';
 import { PaymentFormModel } from '../utils/paymentForm.model';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
+import { useState } from 'react';
 
 const InputTargetNumber = () => {
-    const formik = useFormikContext<PaymentFormModel>();
-    const [value, setValue] = useState(formik.initialValues.targetNumber)
+    const form = useFormikContext<PaymentFormModel>();
+    const [showPassword, setShowPassword] = useState(false);
 
-    const commonAction = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        if (/^\d*$/.test(event.target.value)) {
-            formik.setFieldValue(event.target.name, event.target.value)
-            setValue(event.target.value);
-        }
+    const onClickVisible = () => {
+        setShowPassword(pre => !pre);
     }
 
-    return <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+    return <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
         <TextField
-            value={value}
-            id="targetNumber"
+            label='Número de tarjeta'
             name='targetNumber'
-            label="Número de tarjeta"
-            variant="filled"
-            onChange={commonAction}
-            onBlur={commonAction}
-            error={formik.touched.targetNumber && Boolean(formik.errors.targetNumber)}
-            helperText={formik.touched.targetNumber && formik.errors.targetNumber}
+            id='targetNumber'
+            value={form.values.targetNumber}
+            fullWidth
+            variant='filled'
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            error={form.touched.targetNumber && Boolean(form.errors.targetNumber)}
+            helperText={form.touched.targetNumber && form.errors.targetNumber}
+            slotProps={{
+                input: {
+                    endAdornment: (
+                        <IconButton onClick={onClickVisible}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    ),
+                    inputProps: {
+                        displayChar: showPassword ? undefined : '*',
+                        mask: '#### #### #### ####',
+                        overwrite: false,
+                    },
+                    inputComponent: TextMaskCustom as any
+                }
+            }}
         />
     </FormControl>
 }

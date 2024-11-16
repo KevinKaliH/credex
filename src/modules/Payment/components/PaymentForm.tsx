@@ -2,8 +2,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-import InputTargetNumber from "./InputTargetNumber";
-
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -16,9 +14,10 @@ import { CurrencyList, TypeDocumentList } from "../utils/const";
 import PaymentFormHelper from "../helpers/PaymentForm.helper";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import { Alert, AlertTitle, CircularProgress } from "@mui/material";
+import { Alert, CircularProgress } from "@mui/material";
 import InputMoney from "./InputMoney";
 import { TextMaskCustom } from "./InputTextMask";
+import InputTargetNumber from "./InputTargetNumber";
 
 interface Props {
   visibleAlert: boolean;

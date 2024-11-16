@@ -37,7 +37,7 @@ const InputVisibleData = () => {
     ([_, value]) => value !== null && value !== '' && value !== undefined
   );
 
-  return (<Grid2 container rowSpacing={1} columnSpacing={1} maxWidth={'400px'} minWidth={'300px'}>
+  return (<Grid2 container rowSpacing={1} columnSpacing={1}>
     {
       filteredValues.map(value => (
         <Fragment key={value[0]}>

@@ -6,7 +6,17 @@ const validationSchema = yup.object({
   targetNumber: yup
     .string()
     .required()
-    .matches(/^[0-9]+$/, "Only numbers are allowed"),
+    .test(
+      "no-spaces",
+      "Credit card number must not contain spaces",
+      (value) => {
+        return !value || !/\s/.test(value);
+      }
+    )
+    .transform((value) => value.replace(/\s+/g, ""))
+    .matches(/^[0-9]+$/, "Only numbers are allowed")
+    .min(13)
+    .max(19),
   currencyId: yup.number().required(),
 
   docTypeId: yup.number().required(),

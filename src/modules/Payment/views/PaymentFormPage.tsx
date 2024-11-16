@@ -14,7 +14,7 @@ const PaymentFormPage = () => {
             <PaymentForm visibleAlert={visibleAlert} />
           </Form>
         </div>
-        <div className="p-3 bg-primary d-none d-md-block" style={{ minWidth: '400px' }}>
+        <div className="p-3 bg-primary d-none d-md-block" style={{ minWidth: '400px', maxWidth: '400px' }}>
           <FormInputsView />
         </div>
       </div>
