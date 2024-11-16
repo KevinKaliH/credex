@@ -9,8 +9,24 @@ body {
   padding: 0;
 }
 
-.paymentFormPage {
+.paymentFormContainer {
   display: grid;
+  grid-template-areas:
+    "header header"
+    "main sidebar";
+  grid-template-rows: max-content;
   grid-template-columns: 1fr auto;
   height: 100vh;
+}
+
+.topbarForm {
+  grid-area: header;
+}
+
+.leftForm {
+  grid-area: main;
+}
+
+.rightForm {
+  grid-area: sidebar;
 }

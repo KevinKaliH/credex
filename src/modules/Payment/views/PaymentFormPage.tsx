@@ -2,29 +2,29 @@ import PaymentForm from "../components/PaymentForm";
 import FormInputsView from "../components/FormInputsView";
 import { Form, Formik } from "formik";
 import PaymentFormPageHelper from "../helpers/PaymentFormPage.helper";
-import Collapse from "@mui/material/Collapse";
-import FoundAlert from "../components/FoundAlert";
-import NotFoundAlert from "../components/NotFoundAlert";
+import FormTopBar from "../components/FormTopBar";
+import ModalConfirmPayment from "../components/ModalConfirmPayment";
 
 const PaymentFormPage = () => {
-  const { InitialFormModal, onSubmit, validationSchema, visibleAlert, closeAlert, existQuery } = PaymentFormPageHelper();
+  const { InitialFormModal, onSubmit, validationSchema, visibleAlert, existQuery } = PaymentFormPageHelper();
 
   return (
     <Formik initialValues={InitialFormModal} onSubmit={onSubmit} validationSchema={validationSchema}>
-      <div className="paymentFormPage">
-        <div className="mx-4 mt-3">
-          <Form>
-            <PaymentForm />
+      <Form>
+        <div className="paymentFormContainer">
+          <section className="topbarForm">
+            <FormTopBar />
+          </section>
 
-            <Collapse in={visibleAlert}>
-              {existQuery ? <FoundAlert /> : <NotFoundAlert closeAlert={closeAlert} />}
-            </Collapse>
-          </Form>
+          <section className="leftForm mx-4 mt-3">
+            <PaymentForm existQuery={existQuery} visibleAlert={visibleAlert} />
+          </section>
+          <section className="rightForm p-3 bg-primary d-none d-md-block" style={{ minWidth: '400px', maxWidth: '400px' }}>
+            <FormInputsView />
+          </section>
+          <ModalConfirmPayment showModal={true} handleActionModalConfirm={() => { }} />
         </div>
-        <div className="p-3 bg-primary d-none d-md-block" style={{ minWidth: '400px', maxWidth: '400px' }}>
-          <FormInputsView />
-        </div>
-      </div>
+      </Form>
     </Formik>
   );
 };

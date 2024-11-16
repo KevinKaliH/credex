@@ -18,9 +18,19 @@ import { CircularProgress, InputAdornment } from "@mui/material";
 import { NumericFormatCustom } from "./InputMoney";
 import { TextMaskCustom } from "./InputTextMask";
 import InputTargetNumber from "./InputTargetNumber";
+import Collapse from "@mui/material/Collapse";
+import Alert from "@mui/material/Alert"
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from '@mui/icons-material/Close';
+import { useState } from "react";
 
-const PaymentForm = () => {
-  const { form, onChangeDocTypeId } = PaymentFormHelper();
+interface Props {
+  visibleAlert: boolean;
+  existQuery: boolean;
+}
+
+const PaymentForm = ({ visibleAlert, existQuery }: Props) => {
+  const { form, onChangeDocTypeId, currencyPrefix } = PaymentFormHelper();
 
   return (
     <>
@@ -134,37 +144,44 @@ const PaymentForm = () => {
           variant="contained"
           startIcon={form.isSubmitting ? <CircularProgress size={18} /> : <SearchIcon />}
           disabled={form.isSubmitting}
-          sx={{ m: 1 }}
+          sx={{
+            m: 1,
+            borderRadius: "50px"
+          }}
         >
           BUSCAR
         </Button>
       </CardContainer>
 
-      <CardContainer title='Datos de pago' icon={<MonetizationOnIcon style={{ color: 'white' }} />}>
-        <Row>
-          <Col xs={12} md={6} lg={4}>
-            <FormControl fullWidth sx={{ m: 1 }} variant="filled">
-              <TextField
-                id="valuePay"
-                name="valuePay"
-                label="Monto a pagar"
-                variant="filled"
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                error={form.touched.valuePay && Boolean(form.errors.valuePay)}
-                helperText={form.touched.valuePay && form.errors.valuePay}
-                slotProps={{
-                  input: {
-                    startAdornment: <InputAdornment position="start">C$</InputAdornment>,
-                    inputComponent: NumericFormatCustom as any,
-                  },
-                }}
-              />
-            </FormControl>
+      <Collapse in={visibleAlert}>
+        <AlertResult severity={existQuery ? 'success' : 'error'} title={existQuery ? "Cliente encontrado" : "Cliente no encontrado"} />
 
-          </Col>
-        </Row>
-      </CardContainer>
+        <CardContainer title='Datos de pago' icon={<MonetizationOnIcon style={{ color: 'white' }} />}>
+          <Row>
+            <Col xs={12} md={6} lg={4}>
+              <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+                <TextField
+                  id="valuePay"
+                  name="valuePay"
+                  label="Monto a pagar"
+                  variant="filled"
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  error={form.touched.valuePay && Boolean(form.errors.valuePay)}
+                  helperText={form.touched.valuePay && form.errors.valuePay}
+                  slotProps={{
+                    input: {
+                      startAdornment: <InputAdornment position="start">{currencyPrefix} $</InputAdornment>,
+                      inputComponent: NumericFormatCustom as any,
+                    },
+                  }}
+                />
+              </FormControl>
+
+            </Col>
+          </Row>
+        </CardContainer>
+      </Collapse>
     </>
   );
 };
@@ -188,3 +205,27 @@ const CardContainer = ({ children, icon, title }: any) => {
   );
 };
 
+const AlertResult = ({ title, severity }: { severity: any, title: string }) => {
+  const [collapse, setCollapse] = useState(true)
+
+  const closeMyself = () => {
+    setCollapse(false);
+  }
+
+  return (
+    <Collapse in={collapse}>
+      <Alert variant="filled" severity={severity} sx={{ marginBottom: 2 }} action={
+        <IconButton
+          aria-label="close"
+          color="inherit"
+          size="small"
+          onClick={closeMyself}
+        >
+          <CloseIcon fontSize="inherit" />
+        </IconButton>
+      }>
+        {title}
+      </Alert>
+    </Collapse>
+  )
+}

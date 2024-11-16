@@ -42,7 +42,7 @@ const InputVisibleData = () => {
       filteredValues.map(value => (
         <Fragment key={value.key}>
           <Grid2 size={6}>
-            <p className='m-0'>{FORM_LABELS[value.key]}</p>
+            <p className='text-muted m-0'>{FORM_LABELS[value.key]}</p>
           </Grid2>
           <Grid2 size={6}>
             <p className="m-0 text-end text-truncate">{value.val}</p>
@@ -64,7 +64,7 @@ function formatKeyValue(objectValues: any) {
       if (key == 'docTypeId')
         val = TypeDocumentList.find(i => i.value == val)!.label
       else if (key == 'currencyId')
-        val = CurrencyList.find(i => i.value == val)!.data.prefix + '$';
+        val = CurrencyList.find(i => i.value == val)!.label;
       else if (key == 'targetNumber')
         val = objectValues['targetNumberMask'];
 
