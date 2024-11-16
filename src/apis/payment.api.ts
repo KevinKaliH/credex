@@ -8,6 +8,8 @@ async function searchClient(_: PaymentFormModel) {
   });
 }
 
-export default {
+const PaymentApi = {
   searchClient,
 };
+
+export default PaymentApi;

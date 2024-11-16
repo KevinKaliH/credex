@@ -6,18 +6,13 @@ import ModalConfirmPayment from "@payment/components/ModalConfirmPayment";
 import PaymentForm from "@payment/components/PaymentForm";
 import FormInputsView from "@payment/components/FormInputsView";
 import Button from "@mui/material/Button";
+import usePayment from "@payment/context/payment.context";
 
 const PaymentFormPage = () => {
   const {
     onSubmit,
-    statePage,
-    onClickSearch,
     InitialFormModal,
     validationSchema,
-    onClickHideModal,
-    onClickAcceptModal,
-    onClickCancelPayment,
-    onClickDisplayModal,
   } = PaymentFormPageHelper();
 
   return (
@@ -30,20 +25,12 @@ const PaymentFormPage = () => {
         <div className="paymentFormContainer">
           <section className="topbarForm">
             <FormTopBar>
-              <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3">
-                <Button variant="text" color="primary" sx={{ borderRadius: "50px" }} onClick={onClickCancelPayment}>Cancelar</Button>
-                <ButtonConfirmForm onClickDisplayModal={onClickDisplayModal} />
-              </div>
+              <ButtonHeader />
             </FormTopBar>
           </section>
 
           <section className="leftForm mx-4 mt-3">
-            <PaymentForm
-              buttonSearchId={statePage.submitButtonId}
-              onClickSearch={onClickSearch}
-              existQuery={statePage.existQuery}
-              visibleAlert={statePage.visibleAlert}
-            />
+            <PaymentForm />
           </section>
 
           <section
@@ -53,11 +40,7 @@ const PaymentFormPage = () => {
             <FormInputsView />
           </section>
 
-          <ModalConfirmPayment
-            showModal={statePage.visibleConfirmModal}
-            onClickAcceptModal={onClickAcceptModal}
-            onClickHideModal={onClickHideModal}
-          />
+          <ModalConfirmPayment />
         </div>
       </Form>
     </Formik>
@@ -66,12 +49,24 @@ const PaymentFormPage = () => {
 
 export default PaymentFormPage;
 
-const ButtonConfirmForm = ({ onClickDisplayModal }: any) => {
-  const form = useFormikContext();
+const ButtonHeader = () => {
+  const formik = useFormikContext();
+  const setVisibleConfirmModal = usePayment(s => s.setVisibleConfirmModal);
 
-  const onClickDisplayModalLocal = () => {
-    onClickDisplayModal(form);
+  const onClickConfirm = () => {
+    formik.validateForm();
+    if (!formik.isValid) return;
+
+    setVisibleConfirmModal(true);
   }
-  return <Button onClick={onClickDisplayModalLocal} variant="contained" color="secondary" sx={{ borderRadius: "50px", width: '340px' }}>Continuar</Button>
+
+  const onClickCancel = () => { }
+
+  return (
+    <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3">
+      <Button variant="text" color="primary" sx={{ borderRadius: "50px" }} onClick={onClickCancel}>Cancelar</Button>
+      <Button onClick={onClickConfirm} variant="contained" color="secondary" sx={{ borderRadius: "50px", width: '340px' }}>Continuar</Button>
+    </div>
+  )
 }
 

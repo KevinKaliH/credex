@@ -24,21 +24,9 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
 
-interface Props {
-  visibleAlert: boolean;
-  existQuery: boolean;
-  buttonSearchId: string;
-  onClickSearch: any;
-}
 
-const PaymentForm = ({ visibleAlert, existQuery, onClickSearch, buttonSearchId }: Props) => {
-  const { form, onChangeDocTypeId, currencyPrefix, maskDocument } = PaymentFormHelper();
-
-  const onClickSearchLocal = () => {
-    onClickSearch(form);
-  }
-
-  const searchButtonSubmitting = form.isSubmitting && buttonSearchId == 'search';
+const PaymentForm = () => {
+  const { form, onChangeDocTypeId, currencyPrefix, maskDocument, existClient, isSearching, visibleAlert, onClickSearchLocal } = PaymentFormHelper();
 
   return (
     <>
@@ -148,8 +136,8 @@ const PaymentForm = ({ visibleAlert, existQuery, onClickSearch, buttonSearchId }
 
         <Button
           variant="contained"
-          startIcon={searchButtonSubmitting ? <CircularProgress size={18} /> : <SearchIcon />}
-          disabled={searchButtonSubmitting}
+          startIcon={isSearching ? <CircularProgress size={18} /> : <SearchIcon />}
+          disabled={isSearching}
           onClick={onClickSearchLocal}
           sx={{
             m: 1,
@@ -161,7 +149,7 @@ const PaymentForm = ({ visibleAlert, existQuery, onClickSearch, buttonSearchId }
       </CardContainer>
 
       <Collapse in={visibleAlert}>
-        <AlertResult severity={existQuery ? 'success' : 'error'} title={existQuery ? "Cliente encontrado" : "Cliente no encontrado"} />
+        <AlertResult severity={existClient ? 'success' : 'error'} title={existClient ? "Cliente encontrado" : "Cliente no encontrado"} />
 
         <CardContainer title='Datos de pago' icon={<MonetizationOnIcon style={{ color: 'white' }} />}>
           <Row>

@@ -4,14 +4,11 @@ import Fade from "@mui/material/Fade"
 import Modal from "@mui/material/Modal"
 import InfoIcon from '@mui/icons-material/Info';
 import Button from "@mui/material/Button";
+import ModalConfirmPaymentHelper from "@payment/helpers/ModalConfirmPayment.helper";
 
-interface Props {
-    onClickHideModal: any;
-    onClickAcceptModal: any;
-    showModal: boolean;
-}
+const ModalConfirmPayment = () => {
+    const { onClickHideModal, visibleConfirmModal, onClickAcceptModal } = ModalConfirmPaymentHelper();
 
-const ModalConfirmPayment = ({ onClickAcceptModal, onClickHideModal, showModal }: Props) => {
     return (
         <Modal
             disableEnforceFocus
@@ -19,7 +16,7 @@ const ModalConfirmPayment = ({ onClickAcceptModal, onClickHideModal, showModal }
             disablePortal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
-            open={showModal}
+            open={visibleConfirmModal}
             onClose={onClickHideModal}
             closeAfterTransition
             slots={{ backdrop: Backdrop }}
@@ -29,7 +26,7 @@ const ModalConfirmPayment = ({ onClickAcceptModal, onClickHideModal, showModal }
                 },
             }}
         >
-            <Fade in={showModal}>
+            <Fade in={visibleConfirmModal}>
                 <Box sx={style} className="d-grid">
                     <p className="fw-semibold text-uppercase text-primary">Confirmacion</p>
                     <div className="d-flex align-content-center">
