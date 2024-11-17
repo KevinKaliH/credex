@@ -9,10 +9,6 @@ const HeaderButtons = () => {
   const existClient = usePayment((s) => s.existClient);
 
   const onClickConfirm = () => {
-    eventClickConfirm();
-  };
-
-  const eventClickConfirm = async () => {
     setBtnClicked("showModalConfirm");
     formik.submitForm();
   };
