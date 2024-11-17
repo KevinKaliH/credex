@@ -5,13 +5,14 @@ const ModalConfirmPaymentHelper = () => {
   const formik = useFormikContext();
   const visibleConfirmModal = usePayment((s) => s.visibleConfirmModal);
   const setVisibleConfirmModal = usePayment((s) => s.setVisibleConfirmModal);
+  const setBtnClicked = usePayment((s) => s.setBtnClicked);
 
   const onClickHideModal = () => {
     setVisibleConfirmModal(false);
   };
 
   const onClickAcceptModal = () => {
-    setVisibleConfirmModal(false);
+    setBtnClicked('');
     formik.submitForm();
   };
 

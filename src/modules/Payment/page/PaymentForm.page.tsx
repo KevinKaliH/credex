@@ -7,7 +7,6 @@ import PaymentForm from "@payment/components/PaymentForm";
 import FormInputsView from "@payment/components/FormInputsView";
 import Button from "@mui/material/Button";
 import usePayment from "@payment/context/payment.context";
-import { touchedErrorTags } from "@payment/utils/form.utils";
 
 const PaymentFormPage = () => {
   const {
