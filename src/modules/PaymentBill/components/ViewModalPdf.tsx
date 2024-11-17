@@ -2,6 +2,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import DialogContent from "@mui/material/DialogContent";
 
 interface Props {
   urlPdf: string;
@@ -9,11 +10,16 @@ interface Props {
   hideModal: (...args: any[]) => void;
 }
 
-const ModalConfirmPayment = ({ urlPdf, isVisiblePdf, hideModal }: Props) => {
+const ViewModalPdf = ({ urlPdf, isVisiblePdf, hideModal }: Props) => {
   return (
-    <Dialog open={isVisiblePdf} onClose={hideModal}>
+    <Dialog
+      open={isVisiblePdf}
+      onClose={hideModal}
+      maxWidth="sm"
+      fullWidth={true}
+    >
       <DialogTitle>
-        Modal Title
+        Pago de factura
         <IconButton
           edge="end"
           color="inherit"
@@ -21,18 +27,22 @@ const ModalConfirmPayment = ({ urlPdf, isVisiblePdf, hideModal }: Props) => {
           aria-label="close"
           sx={{
             position: "absolute",
-            right: 8,
+            right: 28,
             top: 8,
           }}
         >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <div style={{ height: "80vh" }}>
-        <iframe src={urlPdf} width={"100%"} height={"100%"} />
-      </div>
+      <DialogContent style={{ height: "80vh" }}>
+        <iframe
+          className="w-100 h-100"
+          src={urlPdf}
+          style={{ border: "none", backgroundColor: "red" }}
+        />
+      </DialogContent>
     </Dialog>
   );
 };
 
-export default ModalConfirmPayment;
+export default ViewModalPdf;

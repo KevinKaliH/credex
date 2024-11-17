@@ -1,12 +1,15 @@
 import HeaderContainer from "@/shared/components/HeaderContainer";
+import ViewModalPdf from "@bill/components/ViewModalPdf";
+import PaymentBillHelper from "@bill/helpers/PaymentBill.helper";
 import { CARDS_LINKS, ILink } from "@bill/utils/const";
 import PrintIcon from "@mui/icons-material/Print";
 import Button from "@mui/material/Button";
 
 const PaymentBill = () => {
-  const renderItem = (item: ILink, index: number) => (
-    <CardLinkTemplate key={index.toString()} value={item} />
-  );
+  const { isVisibleModal, hideModal, showModal, locationParams } =
+    PaymentBillHelper();
+
+  // if (!locationParams) return <Navigate to="/" replace={true} />;
 
   return (
     <div className="full-height d-flex flex-column">
@@ -35,15 +38,28 @@ const PaymentBill = () => {
             color="success"
             sx={{ borderRadius: "50px" }}
             startIcon={<PrintIcon />}
+            onClick={showModal}
           >
             COMPROBANTE
           </Button>
         </div>
 
         <div className="d-flex flex-wrap gap-5 justify-content-center w-100 mb-3">
-          {CARDS_LINKS.map(renderItem)}
+          {CARDS_LINKS.map((item, index) => (
+            <CardLinkTemplate key={index.toString()} value={item} />
+          ))}
         </div>
       </div>
+
+      {isVisibleModal && (
+        <ViewModalPdf
+          urlPdf={
+            "https://web.stanford.edu/class/cs142/lectures/StateManagement.pdf"
+          }
+          isVisiblePdf={isVisibleModal}
+          hideModal={hideModal}
+        />
+      )}
     </div>
   );
 };
