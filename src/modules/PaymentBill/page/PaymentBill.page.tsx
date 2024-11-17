@@ -1,10 +1,13 @@
 import HeaderContainer from "@/shared/components/HeaderContainer";
+import CardLinkTemplate from "@bill/components/CardLinkTemplate";
 import ViewModalPdf from "@bill/components/ViewModalPdf";
 import PaymentBillHelper from "@bill/helpers/PaymentBill.helper";
-import { CARDS_LINKS, ILink } from "@bill/utils/const";
+import { CARDS_LINKS } from "@bill/utils/const";
 import PrintIcon from "@mui/icons-material/Print";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PaymentBill = () => {
   const { isVisibleModal, hideModal, showModal } = PaymentBillHelper();
@@ -13,7 +16,20 @@ const PaymentBill = () => {
 
   return (
     <div className="full-height d-flex flex-column">
-      <HeaderContainer step={2}></HeaderContainer>
+      <HeaderContainer step={2}>
+        <div>
+          <Button
+            component={Link}
+            replace={true}
+            to="/"
+            variant="contained"
+            color="primary"
+            startIcon={<ArrowBackIcon />}
+          >
+            Go to Home
+          </Button>
+        </div>
+      </HeaderContainer>
 
       <div className="flex-1 h-100 d-flex flex-column align-items-center">
         <Box
@@ -33,7 +49,7 @@ const PaymentBill = () => {
               backgroundColor: "skyBlue",
             }}
           >
-            <PrintIcon sx={{ fontSize: 50, color: "blue" }} />{" "}
+            <PrintIcon sx={{ fontSize: 50, color: "blue" }} />
           </div>
           <p className="mb-0">Transaccion finalizada</p>
           <p className="fw-bold text-primary fs-4 my-2">2024110120174439200d</p>
@@ -69,35 +85,3 @@ const PaymentBill = () => {
 };
 
 export default PaymentBill;
-
-const CardLinkTemplate = ({ value }: { value: ILink }) => {
-  return (
-    <div
-      className="d-grid shadow-sm rounded-xs bg-white px-3 py-2"
-      style={{ width: "220px" }}
-    >
-      <div
-        className="rounded-circle p-4"
-        style={{
-          width: "50px",
-          height: "50px",
-          backgroundColor: value.fill,
-          boxSizing: "content-box",
-          justifySelf: "center",
-        }}
-      >
-        <img src={value.icon} className="w-100 h-100" />
-      </div>
-      <a
-        href={value.link}
-        className="my-3 btn btn-primary d-block border-0 rounded-pill p-0 text-uppercase fw-semibold"
-        role="button"
-      >
-        Realizar
-      </a>
-      <p className="text-center text-uppercase fw-semibold fs-6 mb-0">
-        {value.label}
-      </p>
-    </div>
-  );
-};
