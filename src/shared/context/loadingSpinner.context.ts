@@ -15,5 +15,6 @@ const useLoadingSpinner = create<IPaymentFormState>((set) => ({
 
   setVisibleLoading: (value: boolean) => set({ visibleLoading: value }),
 }));
-
 export default useLoadingSpinner;
+
+export const setLoadingGlobal = () => useLoadingSpinner(s => s.setVisibleLoading);
