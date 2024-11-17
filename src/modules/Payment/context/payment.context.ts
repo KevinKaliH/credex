@@ -5,21 +5,25 @@ interface IPaymentFormState {
   visibleAlert: boolean;
   visibleConfirmModal: boolean;
   isSearching: boolean;
+  btnClicked: string;
 
   setVisibleAlert: (val: boolean) => void;
   setVisibleConfirmModal: (val: boolean) => void;
   setSearching: (val: boolean) => void;
   setExistClient: (val: boolean) => void;
+  setBtnClicked: (val: string) => void;
 }
 
 const initialStatePage: IPaymentFormState = {
+  btnClicked: "",
   existClient: false,
-  visibleAlert: false,
   isSearching: false,
+  visibleAlert: false,
   visibleConfirmModal: false,
 
-  setExistClient: () => {},
+  setBtnClicked: () => {},
   setSearching: () => {},
+  setExistClient: () => {},
   setVisibleAlert: () => {},
   setVisibleConfirmModal: () => {},
 };
@@ -32,6 +36,7 @@ const usePayment = create<IPaymentFormState>((set) => ({
     set({ visibleConfirmModal: value }),
   setSearching: (value: boolean) => set({ isSearching: value }),
   setExistClient: (value: boolean) => set({ existClient: value }),
+  setBtnClicked: (value: string) => set({ btnClicked: value }),
 }));
 
 export default usePayment;

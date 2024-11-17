@@ -8,8 +8,17 @@ async function searchClient(_: PaymentFormModel) {
   });
 }
 
+async function ConfirmPayment(_: PaymentFormModel) {
+  return new Promise((res: any, _: any) => {
+    setTimeout(() => {
+      res({ ok: true });
+    }, 600);
+  });
+}
+
 const PaymentApi = {
   searchClient,
+  ConfirmPayment,
 };
 
 export default PaymentApi;

@@ -1,6 +1,8 @@
 import usePayment from "@payment/context/payment.context";
+import { useFormikContext } from "formik";
 
 const ModalConfirmPaymentHelper = () => {
+  const formik = useFormikContext();
   const visibleConfirmModal = usePayment((s) => s.visibleConfirmModal);
   const setVisibleConfirmModal = usePayment((s) => s.setVisibleConfirmModal);
 
@@ -9,7 +11,8 @@ const ModalConfirmPaymentHelper = () => {
   };
 
   const onClickAcceptModal = () => {
-    console.log("this is right");
+    setVisibleConfirmModal(false);
+    formik.submitForm();
   };
 
   return {

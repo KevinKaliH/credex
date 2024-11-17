@@ -7,6 +7,7 @@ import PaymentForm from "@payment/components/PaymentForm";
 import FormInputsView from "@payment/components/FormInputsView";
 import Button from "@mui/material/Button";
 import usePayment from "@payment/context/payment.context";
+import { touchedErrorTags } from "@payment/utils/form.utils";
 
 const PaymentFormPage = () => {
   const {
@@ -17,6 +18,7 @@ const PaymentFormPage = () => {
 
   return (
     <Formik
+      validateOnMount={true}
       initialValues={InitialFormModal}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
@@ -51,16 +53,18 @@ export default PaymentFormPage;
 
 const ButtonHeader = () => {
   const formik = useFormikContext();
-  const setVisibleConfirmModal = usePayment(s => s.setVisibleConfirmModal);
+  const setBtnClicked = usePayment(s => s.setBtnClicked);
 
   const onClickConfirm = () => {
-    formik.validateForm();
-    if (!formik.isValid) return;
-
-    setVisibleConfirmModal(true);
+    eventClickConfirm();
   }
 
-  const onClickCancel = () => { }
+  const eventClickConfirm = async () => {
+    setBtnClicked('showModalConfirm');
+    formik.submitForm();
+  }
+
+  const onClickCancel = () => {}
 
   return (
     <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3">

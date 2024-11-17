@@ -2,8 +2,6 @@ import * as yup from "yup";
 import { TypeDocumentList } from "@payment/utils/const";
 
 export function formSchema(existQuery: boolean) {
-  console.log("working");
-
   return yup.object({
     targetNumber: yup
       .string()
