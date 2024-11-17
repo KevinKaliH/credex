@@ -1,6 +1,10 @@
 import { useFormikContext } from "formik";
 import { Fragment } from "react/jsx-runtime";
-import { CurrencyList, FORM_LABELS, TypeDocumentList } from "@payment/utils/const";
+import {
+  CurrencyList,
+  FORM_LABELS,
+  TypeDocumentList,
+} from "@payment/utils/const";
 import Grid2 from "@mui/material/Grid2";
 import { memo, useMemo } from "react";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
@@ -14,16 +18,19 @@ const FormInputsView = memo(() => {
         </div>
         <div className="p-2">
           <InputVisibleData />
-          <p className="border-top mt-3">Total</p>
         </div>
       </div>
 
       <div className="bg-white mt-3 grid">
-        <div className="border-bottom px-3 py-2">
+        <div className="border-bottom px-3 py-3">
           <p className="fw-semibold text-primary m-0">SERVICIO A PAGAR</p>
         </div>
         <div className="p-5 text-center">
-          <img src="https://logosnicas.com/wp-content/uploads/2022/10/credex.png" width={120} />
+          <img
+            className="my-4"
+            src="https://logosnicas.com/wp-content/uploads/2022/10/credex.png"
+            width={120}
+          />
         </div>
       </div>
     </section>
@@ -37,41 +44,43 @@ const InputVisibleData = () => {
 
   const filteredValues = useMemo(() => formatKeyValue(values), [values]);
 
-  return (<Grid2 container rowSpacing={1} columnSpacing={1}>
-    {
-      filteredValues.map(value => (
+  return (
+    <Grid2 container rowSpacing={1} columnSpacing={1}>
+      {filteredValues.map((value) => (
         <Fragment key={value.key}>
           <Grid2 size={6}>
-            <p className='text-muted m-0'>{FORM_LABELS[value.key]}</p>
+            <p className="text-secondary m-0">{FORM_LABELS[value.key]}</p>
           </Grid2>
           <Grid2 size={6}>
             <p className="m-0 text-end text-truncate">{value.val}</p>
           </Grid2>
         </Fragment>
-      ))
-    }
-  </Grid2>)
-}
+      ))}
+    </Grid2>
+  );
+};
 
 function formatKeyValue(objectValues: any) {
   return Object.entries(objectValues ?? {})
     .filter(
-      ([_, value]) => value !== null && value !== '' && value !== undefined
-    ) // no empty data
-    .map(value => {
+      ([_, value]) => value !== null && value !== "" && value !== undefined
+    )
+    .map((value) => {
       let { "0": key, "1": val } = value;
 
-      if (key == 'docTypeId')
-        val = TypeDocumentList.find(i => i.value == val)!.label
-      else if (key == 'currencyId')
-        val = CurrencyList.find(i => i.value == val)!.label;
-      else if (key == 'targetNumber')
-        val = objectValues['targetNumberMask'];
+      if (key == "docTypeId")
+        val = TypeDocumentList.find((i) => i.value == val)!.label;
+      else if (key == "currencyId")
+        val = CurrencyList.find((i) => i.value == val)!.label;
+      else if (key == "targetNumber") val = objectValues["targetNumberMask"];
+      else if (key == "valuePay")
+        val =
+          CurrencyList.find((i) => i.value == val)?.data?.prefix + `$ ${val}`;
 
       return {
         key,
-        val
-      }
-    }) // id matches
-    .filter(i => i.key in FORM_LABELS) // key exist in labels view
+        val: val as string,
+      };
+    })
+    .filter((i) => i.key in FORM_LABELS);
 }

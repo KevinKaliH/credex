@@ -1,3 +1,7 @@
+html {
+  font-size: 14px;
+}
+
 body {
   background-color: #f6f6f6 !important;
 }
@@ -33,4 +37,13 @@ body {
 
 .rightForm {
   grid-area: sidebar;
+}
+/* -------- */
+.header-titles p {
+  border-right: 1px solid var(--bs-primary);
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.header-titles p:first-child {
+  padding-left: 0;
 }

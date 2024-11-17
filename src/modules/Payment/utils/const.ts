@@ -39,4 +39,5 @@ export const FORM_LABELS: { [key: string]: string } = {
   firstName: "Primer nombre",
   lastName: "Primer apellido",
   currencyId: "Tipo de moneda",
+  valuePay: "Monto a pagar",
 };

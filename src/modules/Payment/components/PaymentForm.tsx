@@ -12,25 +12,36 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
 import PaymentFormHelper from "@payment/helpers/PaymentForm.helper";
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { CircularProgress, InputAdornment } from "@mui/material";
 import { NumericFormatCustom } from "./InputMoney";
 import { TextMaskCustom } from "./InputTextMask";
 import InputTargetNumber from "./InputTargetNumber";
 import Collapse from "@mui/material/Collapse";
-import Alert from "@mui/material/Alert"
+import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 
-
 const PaymentForm = () => {
-  const { form, onChangeDocTypeId, currencyPrefix, maskDocument, existClient, isSearching, visibleAlert, onClickSearchLocal } = PaymentFormHelper();
+  const {
+    form,
+    onChangeDocTypeId,
+    currencyPrefix,
+    maskDocument,
+    existClient,
+    isSearching,
+    visibleAlert,
+    onClickSearchLocal,
+  } = PaymentFormHelper();
 
   return (
     <>
-      <CardContainer icon={<FilterAltIcon style={{ color: 'white' }} />} title="Filtrar factura">
+      <CardContainer
+        icon={<FilterAltIcon style={{ color: "white" }} />}
+        title="Filtrar factura"
+      >
         <Row>
           <Col xs={12} md={6} lg={4}>
             <InputTargetNumber />
@@ -47,12 +58,14 @@ const PaymentForm = () => {
                 id="docTypeId"
                 name="docTypeId"
                 labelId="docTypeId"
-                value={form.values.docTypeId ?? ''}
+                value={form.values.docTypeId ?? ""}
                 onChange={onChangeDocTypeId}
                 onBlur={form.handleBlur}
               >
                 {TypeDocumentList.map((value) => (
-                  <MenuItem key={value.value} value={value.value}>{value.label}</MenuItem>
+                  <MenuItem key={value.value} value={value.value}>
+                    {value.label}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -60,23 +73,28 @@ const PaymentForm = () => {
           <Col xs={12} md={6} lg={4}>
             <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
               <TextField
-                label='Numero de documento'
-                name='documentValue'
-                id='documentValue'
+                label="Numero de documento"
+                name="documentValue"
+                id="documentValue"
                 value={form.values.documentValue}
                 fullWidth
-                variant='filled'
+                variant="filled"
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
-                error={form.touched.documentValue && Boolean(form.errors.documentValue)}
-                helperText={form.touched.documentValue && form.errors.documentValue}
+                error={
+                  form.touched.documentValue &&
+                  Boolean(form.errors.documentValue)
+                }
+                helperText={
+                  form.touched.documentValue && form.errors.documentValue
+                }
                 slotProps={{
                   input: {
                     inputProps: {
-                      mask: maskDocument
+                      mask: maskDocument,
                     },
-                    inputComponent: TextMaskCustom as any
-                  }
+                    inputComponent: TextMaskCustom as any,
+                  },
                 }}
               />
             </FormControl>
@@ -114,21 +132,26 @@ const PaymentForm = () => {
           </Col>
 
           <Col xs={12} md={6} lg={4}>
-            <FormControl fullWidth variant="filled" sx={{ m: 1 }}
+            <FormControl
+              fullWidth
+              variant="filled"
+              sx={{ m: 1 }}
               error={form.touched.currencyId && Boolean(form.errors.currencyId)}
             >
               <InputLabel id="currencyIdLabel">Tipo de moneda</InputLabel>
               <Select
                 labelId="currencyIdLabel"
                 id="currencyId"
-                name='currencyId'
-                value={form.values.currencyId ?? ''}
+                name="currencyId"
+                value={form.values.currencyId ?? ""}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               >
-                {CurrencyList.map(value =>
-                  <MenuItem key={value.value} value={value.value}>{value.label}</MenuItem>
-                )}
+                {CurrencyList.map((value) => (
+                  <MenuItem key={value.value} value={value.value}>
+                    {value.label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Col>
@@ -136,12 +159,14 @@ const PaymentForm = () => {
 
         <Button
           variant="contained"
-          startIcon={isSearching ? <CircularProgress size={18} /> : <SearchIcon />}
+          startIcon={
+            isSearching ? <CircularProgress size={18} /> : <SearchIcon />
+          }
           disabled={isSearching}
           onClick={onClickSearchLocal}
           sx={{
             m: 1,
-            borderRadius: "50px"
+            borderRadius: "50px",
           }}
         >
           BUSCAR
@@ -149,9 +174,15 @@ const PaymentForm = () => {
       </CardContainer>
 
       <Collapse in={visibleAlert}>
-        <AlertResult severity={existClient ? 'success' : 'error'} title={existClient ? "Cliente encontrado" : "Cliente no encontrado"} />
+        <AlertResult
+          severity={existClient ? "success" : "error"}
+          title={existClient ? "Cliente encontrado" : "Cliente no encontrado"}
+        />
 
-        <CardContainer title='Datos de pago' icon={<MonetizationOnIcon style={{ color: 'white' }} />}>
+        <CardContainer
+          title="Datos de pago"
+          icon={<MonetizationOnIcon style={{ color: "white" }} />}
+        >
           <Row>
             <Col xs={12} md={6} lg={4}>
               <FormControl fullWidth sx={{ m: 1 }} variant="filled">
@@ -166,13 +197,16 @@ const PaymentForm = () => {
                   helperText={form.touched.valuePay && form.errors.valuePay}
                   slotProps={{
                     input: {
-                      startAdornment: <InputAdornment position="start">{currencyPrefix} $</InputAdornment>,
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          {currencyPrefix} $
+                        </InputAdornment>
+                      ),
                       inputComponent: NumericFormatCustom as any,
                     },
                   }}
                 />
               </FormControl>
-
             </Col>
           </Row>
         </CardContainer>
@@ -186,11 +220,11 @@ export default PaymentForm;
 const CardContainer = ({ children, icon, title }: any) => {
   return (
     <Container className="bg-white shadow-sm rounded px-4 py-3 mb-3">
-      <div className="d-flex align-items-center mb-2">
+      <div className="d-flex align-items-center">
         <div className="p-2 bg-primary" style={{ marginLeft: "-45px" }}>
           {icon}
         </div>
-        <p className="text-uppercase text-primary fw-bolder m-0 ms-3">
+        <p className="text-uppercase text-primary fw-semibold m-0 ms-3">
           {title}
         </p>
       </div>
@@ -200,27 +234,32 @@ const CardContainer = ({ children, icon, title }: any) => {
   );
 };
 
-const AlertResult = ({ title, severity }: { severity: any, title: string }) => {
-  const [collapse, setCollapse] = useState(true)
+const AlertResult = ({ title, severity }: { severity: any; title: string }) => {
+  const [collapse, setCollapse] = useState(true);
 
   const closeMyself = () => {
     setCollapse(false);
-  }
+  };
 
   return (
     <Collapse in={collapse}>
-      <Alert variant="filled" severity={severity} sx={{ marginBottom: 2 }} action={
-        <IconButton
-          aria-label="close"
-          color="inherit"
-          size="small"
-          onClick={closeMyself}
-        >
-          <CloseIcon fontSize="inherit" />
-        </IconButton>
-      }>
+      <Alert
+        variant="filled"
+        severity={severity}
+        sx={{ marginBottom: 2 }}
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={closeMyself}
+          >
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        }
+      >
         {title}
       </Alert>
     </Collapse>
-  )
-}
+  );
+};
