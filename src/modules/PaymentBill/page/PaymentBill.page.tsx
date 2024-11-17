@@ -7,12 +7,13 @@ import PrintIcon from "@mui/icons-material/Print";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 
 const PaymentBill = () => {
   const { isVisibleModal, hideModal, showModal } = PaymentBillHelper();
 
-  // if (!locationParams) return <Navigate to="/" replace={true} />;
+  // if (!locationParams) return <Navigate to={EnumAppRoutes.search} replace={true} />;
 
   return (
     <div className="full-height d-flex flex-column">
@@ -21,7 +22,7 @@ const PaymentBill = () => {
           <Button
             component={Link}
             replace={true}
-            to="/"
+            to={EnumAppRoutes.search}
             variant="contained"
             color="primary"
             startIcon={<ArrowBackIcon />}

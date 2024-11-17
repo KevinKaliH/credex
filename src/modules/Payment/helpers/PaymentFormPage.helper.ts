@@ -8,6 +8,7 @@ import PaymentApi from "@/apis/payment.api";
 import usePayment from "@payment/context/payment.context";
 import { useNavigate } from "react-router-dom";
 import useLoadingSpinner from "@/shared/context/loadingSpinner.context";
+import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const PaymentFormPageHelper = () => {
     setVisibleConfirmModal(false);
     setVisibleLoading(false);
     resetState();
-    navigate("/bill");
+    navigate(EnumAppRoutes.bill, { replace: true });
   };
 
   return {

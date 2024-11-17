@@ -3,7 +3,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Unauthorized from "@/shared/pages/Unauthorized";
 import LoadingPageRoute from "@/shared/components/LoadingPageRoute";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
-import RootPage from "@/modules/Root/pages/Root.page";
+import RootPage from "@/modules/Root/Root.page";
 
 const PaymentFormPage = lazy(
   () => import("@/modules/Payment/page/PaymentForm.page")
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: <RootPage />,
   },
   {
-    path: "/",
+    path: EnumAppRoutes.search,
     element: (
       <LoadingPageRoute>
         <PaymentFormPage />
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/bill",
+    path: EnumAppRoutes.bill,
     element: (
       <LoadingPageRoute>
         <PaymentBillPage />
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "unauthorized",
+    path: EnumAppRoutes.unauthorized,
     element: <Unauthorized />,
   },
   {

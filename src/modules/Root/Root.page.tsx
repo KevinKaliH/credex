@@ -4,7 +4,6 @@ import RootHelper from "./Root.helper";
 
 const RootPage = () => {
   const { isLogged, isLogging } = RootHelper();
-
   if (isLogging) return <></>;
 
   return (

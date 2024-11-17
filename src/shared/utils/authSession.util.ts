@@ -1,9 +1,11 @@
+import { ValidateSessionResponse } from "@/models/response/validateSessionResponse.model";
+
 export class AuthSessionUtil {
-  static saveSession(user: any) {
+  static saveSession(user: ValidateSessionResponse) {
     sessionStorage.setItem("user", JSON.stringify(user));
   }
 
-  static getAuthSession(): any | null {
+  static getAuthSession(): any | ValidateSessionResponse {
     const data = sessionStorage.getItem("user");
     if (!data) return null;
     return JSON.parse(data);
