@@ -35,11 +35,7 @@ const ViewModalPdf = ({ urlPdf, isVisiblePdf, hideModal }: Props) => {
         </IconButton>
       </DialogTitle>
       <DialogContent style={{ height: "80vh" }}>
-        <iframe
-          className="w-100 h-100"
-          src={urlPdf}
-          style={{ border: "none", backgroundColor: "red" }}
-        />
+        <iframe className="w-100 h-100" src={urlPdf} />
       </DialogContent>
     </Dialog>
   );

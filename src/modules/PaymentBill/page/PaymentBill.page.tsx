@@ -3,11 +3,11 @@ import ViewModalPdf from "@bill/components/ViewModalPdf";
 import PaymentBillHelper from "@bill/helpers/PaymentBill.helper";
 import { CARDS_LINKS, ILink } from "@bill/utils/const";
 import PrintIcon from "@mui/icons-material/Print";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 const PaymentBill = () => {
-  const { isVisibleModal, hideModal, showModal, locationParams } =
-    PaymentBillHelper();
+  const { isVisibleModal, hideModal, showModal } = PaymentBillHelper();
 
   // if (!locationParams) return <Navigate to="/" replace={true} />;
 
@@ -16,9 +16,14 @@ const PaymentBill = () => {
       <HeaderContainer step={2}></HeaderContainer>
 
       <div className="flex-1 h-100 d-flex flex-column align-items-center">
-        <div
+        <Box
           className="h-100 d-grid shadow-sm rounded-xs bg-white px-3 py-2 my-5 d-flex flex-column justify-content-center align-items-center"
-          style={{ width: "500px", maxHeight: "300px" }}
+          sx={{
+            width: {
+              sm: "500px",
+            },
+          }}
+          style={{ maxHeight: "300px" }}
         >
           <div
             className="d-flex justify-content-center align-items-center rounded-circle p-2"
@@ -29,7 +34,6 @@ const PaymentBill = () => {
             }}
           >
             <PrintIcon sx={{ fontSize: 50, color: "blue" }} />{" "}
-            {/* Icon with white color */}
           </div>
           <p className="mb-0">Transaccion finalizada</p>
           <p className="fw-bold text-primary fs-4 my-2">2024110120174439200d</p>
@@ -42,7 +46,7 @@ const PaymentBill = () => {
           >
             COMPROBANTE
           </Button>
-        </div>
+        </Box>
 
         <div className="d-flex flex-wrap gap-5 justify-content-center w-100 mb-3">
           {CARDS_LINKS.map((item, index) => (

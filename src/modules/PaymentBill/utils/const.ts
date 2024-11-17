@@ -11,13 +11,13 @@ export interface ILink {
 }
 
 export const CARDS_LINKS: ILink[] = [
-  { icon: exchangeSvg, label: "Mesa de cambio", link: "", fill: "green" },
+  { icon: exchangeSvg, label: "Mesa de cambio", link: "/", fill: "green" },
   {
     icon: smartphone,
     label: "Recargas telefonicas",
-    link: "",
+    link: "/",
     fill: "skyBlue",
   },
-  { icon: billWallet, label: "Pago de servicios", link: "", fill: "orange" },
-  { icon: wallet, label: "Recarga de billetera", link: "", fill: "blue" },
+  { icon: billWallet, label: "Pago de servicios", link: "/", fill: "orange" },
+  { icon: wallet, label: "Recarga de billetera", link: "/", fill: "blue" },
 ];
