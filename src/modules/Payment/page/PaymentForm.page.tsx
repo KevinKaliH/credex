@@ -1,12 +1,12 @@
 import { Form, Formik, useFormikContext } from "formik";
 
 import PaymentFormPageHelper from "@payment/helpers/PaymentFormPage.helper";
-import FormTopBar from "@payment/components/FormTopBar";
 import ModalConfirmPayment from "@payment/components/ModalConfirmPayment";
 import PaymentForm from "@payment/components/PaymentForm";
 import FormInputsView from "@payment/components/FormInputsView";
 import Button from "@mui/material/Button";
 import usePayment from "@payment/context/payment.context";
+import HeaderContainer from "@/shared/components/HeaderContainer";
 
 const PaymentFormPage = () => {
   const {
@@ -25,9 +25,9 @@ const PaymentFormPage = () => {
       <Form>
         <div className="paymentFormContainer">
           <section className="topbarForm">
-            <FormTopBar>
+            <HeaderContainer step={1}>
               <ButtonHeader />
-            </FormTopBar>
+            </HeaderContainer>
           </section>
 
           <section className="leftForm mx-4 mt-3">
@@ -63,7 +63,7 @@ const ButtonHeader = () => {
     formik.submitForm();
   }
 
-  const onClickCancel = () => {}
+  const onClickCancel = () => { }
 
   return (
     <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3">

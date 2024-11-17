@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@payment": "/src/modules/Payment",
+      "@bill": "/src/modules/PaymentBill",
       "@": "/src",
     },
   },

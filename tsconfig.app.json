@@ -23,11 +23,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    
     "baseUrl": ".",
     "paths": {
       "@payment/*": [
         "./src/modules/Payment/*"
+      ],
+      "@bill/*": [
+        "./src/modules/PaymentBill/*",
       ],
       "@/*": [
         "./src/*"
