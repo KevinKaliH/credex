@@ -11,24 +11,25 @@ import PaymentFormHelper from "@payment/helpers/PaymentForm.helper";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { CircularProgress, InputAdornment } from "@mui/material";
-import { NumericFormatCustom } from "./InputMoney";
-import { TextMaskCustom } from "./InputTextMask";
-import InputTargetNumber from "./InputTargetNumber";
+import { NumericFormatCustom } from "@payment/components/InputMoney";
+import { TextMaskCustom } from "@payment/components/InputTextMask";
+import InputTargetNumber from "@payment/components/InputTargetNumber";
 import Collapse from "@mui/material/Collapse";
 import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import ActionFormButtons from "@payment/components/ActionFormButtons";
 
 const PaymentForm = () => {
   const {
     form,
-    onChangeDocTypeId,
-    currencyPrefix,
-    maskDocument,
     existClient,
     isSearching,
+    maskDocument,
     visibleAlert,
+    currencyPrefix,
+    onChangeDocTypeId,
     onClickSearchLocal,
   } = PaymentFormHelper();
 
@@ -51,6 +52,7 @@ const PaymentForm = () => {
             >
               <InputLabel id="docTypeId">Tipo de documento</InputLabel>
               <Select
+                disabled={existClient}
                 id="docTypeId"
                 name="docTypeId"
                 labelId="docTypeId"
@@ -69,6 +71,7 @@ const PaymentForm = () => {
           <div className="col-lg-4 col-md-6 col-12">
             <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
               <TextField
+                disabled={existClient}
                 label="Numero de documento"
                 name="documentValue"
                 id="documentValue"
@@ -99,6 +102,7 @@ const PaymentForm = () => {
           <div className="col-lg-4 col-md-6 col-12">
             <FormControl fullWidth sx={{ m: 1 }} variant="filled">
               <TextField
+                disabled={existClient}
                 id="firstName"
                 name="firstName"
                 label="Primer nombre"
@@ -114,6 +118,7 @@ const PaymentForm = () => {
           <div className="col-lg-4 col-md-6 col-12">
             <FormControl fullWidth sx={{ m: 1 }} variant="filled">
               <TextField
+                disabled={existClient}
                 fullWidth
                 id="lastName"
                 name="lastName"
@@ -136,6 +141,7 @@ const PaymentForm = () => {
             >
               <InputLabel id="currencyIdLabel">Tipo de moneda</InputLabel>
               <Select
+                disabled={existClient}
                 labelId="currencyIdLabel"
                 id="currencyId"
                 name="currencyId"
@@ -153,27 +159,36 @@ const PaymentForm = () => {
           </div>
         </div>
 
-        <Button
-          variant="contained"
-          startIcon={
-            isSearching ? <CircularProgress size={18} /> : <SearchIcon />
-          }
-          disabled={isSearching}
-          onClick={onClickSearchLocal}
-          sx={{
-            m: 1,
-            borderRadius: "50px",
-          }}
-        >
-          BUSCAR
-        </Button>
+        <div className="row">
+          <div className="col">
+            <Button
+              variant="contained"
+              startIcon={
+                isSearching ? <CircularProgress size={18} /> : <SearchIcon />
+              }
+              disabled={isSearching || existClient}
+              onClick={onClickSearchLocal}
+              sx={{
+                m: 1,
+                borderRadius: "50px",
+              }}
+            >
+              BUSCAR
+            </Button>
+          </div>
+          <div className="col text-end">
+            <ActionFormButtons />
+          </div>
+        </div>
       </CardContainer>
 
-      <Collapse in={visibleAlert}>
-        <AlertResult
-          severity={existClient ? "success" : "error"}
-          title={existClient ? "Cliente encontrado" : "Cliente no encontrado"}
-        />
+      <Collapse in={existClient}>
+        {visibleAlert && (
+          <AlertResult
+            severity={existClient ? "success" : "error"}
+            title={existClient ? "Cliente encontrado" : "Cliente no encontrado"}
+          />
+        )}
 
         <CardContainer
           title="Datos de pago"

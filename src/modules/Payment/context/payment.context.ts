@@ -39,7 +39,14 @@ const usePayment = create<IPaymentFormState>((set) => ({
   setSearching: (value: boolean) => set({ isSearching: value }),
   setExistClient: (value: boolean) => set({ existClient: value }),
   setBtnClicked: (value: string) => set({ btnClicked: value }),
-  resetState: () => set({ ...initialStatePage }),
+  resetState: () =>
+    set({
+      btnClicked: "",
+      existClient: false,
+      isSearching: false,
+      visibleAlert: false,
+      visibleConfirmModal: false,
+    }),
 }));
 
 export default usePayment;
