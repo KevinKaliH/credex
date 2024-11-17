@@ -107,6 +107,7 @@ const PaymentForm = () => {
                 name="firstName"
                 label="Primer nombre"
                 variant="filled"
+                value={form.values.firstName}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 error={form.touched.firstName && Boolean(form.errors.firstName)}
@@ -124,6 +125,7 @@ const PaymentForm = () => {
                 name="lastName"
                 label="Primer apellido"
                 variant="filled"
+                value={form.values.lastName}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 error={form.touched.lastName && Boolean(form.errors.lastName)}
