@@ -5,34 +5,40 @@ export function formSchema(existQuery: boolean) {
   return yup.object({
     targetNumber: yup
       .string()
-      .required()
-      .test(
-        "no-spaces",
-        "Credit card number must not contain spaces",
-        (value) => {
-          return !value || !/\s/.test(value);
-        }
-      )
-      .transform((value) => value.replace(/\s+/g, ""))
-      .matches(/^[0-9]+$/, "Only numbers are allowed")
-      .min(13)
-      .max(19),
-    currencyId: yup.number().required(),
+      .required("La tarjeta de crédito es obligatorio")
+      .test("no-spaces", "No se permiten espacios", (value) => {
+        return !value || !/\s/.test(value);
+      })
+      .transform((value) => value.replace(/\s+/g, "")) // Eliminar espacios en blanco
+      .matches(/^[0-9]+$/, "Solo se permiten números")
+      .min(13, "El número debe tener al menos 13 dígitos")
+      .max(19, "El número no puede tener más de 19 dígitos"),
 
-    docTypeId: yup.number().required(),
+    currencyId: yup.number().required("El tipo de la moneda es obligatorio"),
+
+    docTypeId: yup.number().required("El tipo de documento es obligatorio"),
+
     documentValue: yup.string().when("docTypeId", (docTypeId: any, schema) => {
       const selectedDoc = TypeDocumentList.find((i) => i.value == docTypeId);
-      if (!selectedDoc) return schema.required();
+      if (!selectedDoc)
+        return schema.required("El valor del documento es obligatorio");
 
       return schema
-        .matches(selectedDoc.data.regex, selectedDoc.data.errorMessage)
-        .required();
+        .matches(
+          selectedDoc.data.regex,
+          selectedDoc.data.errorMessage || "Valor de documento no válido"
+        )
+        .required("El valor del documento es obligatorio");
     }),
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
+
+    firstName: yup.string().required("El nombre es obligatorio"),
+
+    lastName: yup.string().required("El apellido es obligatorio"),
 
     valuePay: yup.lazy((_) => {
-      return existQuery ? yup.number().required() : yup.number().notRequired();
+      return existQuery
+        ? yup.number().required("El valor de pago es obligatorio")
+        : yup.number().notRequired();
     }),
   });
 }
