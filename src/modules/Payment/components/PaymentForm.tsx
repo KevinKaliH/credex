@@ -1,7 +1,3 @@
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -42,11 +38,11 @@ const PaymentForm = () => {
         icon={<FilterAltIcon style={{ color: "white" }} />}
         title="Filtrar factura"
       >
-        <Row>
-          <Col xs={12} md={6} lg={4}>
+        <div className="row">
+          <div className="col-lg-4 col-md-6 col-12">
             <InputTargetNumber />
-          </Col>
-          <Col xs={12} md={6} lg={4}>
+          </div>
+          <div className="col-lg-4 col-md-6 col-12">
             <FormControl
               fullWidth
               variant="filled"
@@ -69,8 +65,8 @@ const PaymentForm = () => {
                 ))}
               </Select>
             </FormControl>
-          </Col>
-          <Col xs={12} md={6} lg={4}>
+          </div>
+          <div className="col-lg-4 col-md-6 col-12">
             <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
               <TextField
                 label="Numero de documento"
@@ -98,9 +94,9 @@ const PaymentForm = () => {
                 }}
               />
             </FormControl>
-          </Col>
+          </div>
 
-          <Col xs={12} md={6} lg={4}>
+          <div className="col-lg-4 col-md-6 col-12">
             <FormControl fullWidth sx={{ m: 1 }} variant="filled">
               <TextField
                 id="firstName"
@@ -113,9 +109,9 @@ const PaymentForm = () => {
                 helperText={form.touched.firstName && form.errors.firstName}
               />
             </FormControl>
-          </Col>
+          </div>
 
-          <Col xs={12} md={6} lg={4}>
+          <div className="col-lg-4 col-md-6 col-12">
             <FormControl fullWidth sx={{ m: 1 }} variant="filled">
               <TextField
                 fullWidth
@@ -129,9 +125,9 @@ const PaymentForm = () => {
                 helperText={form.touched.lastName && form.errors.lastName}
               />
             </FormControl>
-          </Col>
+          </div>
 
-          <Col xs={12} md={6} lg={4}>
+          <div className="col-lg-4 col-md-6 col-12">
             <FormControl
               fullWidth
               variant="filled"
@@ -154,8 +150,8 @@ const PaymentForm = () => {
                 ))}
               </Select>
             </FormControl>
-          </Col>
-        </Row>
+          </div>
+        </div>
 
         <Button
           variant="contained"
@@ -183,8 +179,8 @@ const PaymentForm = () => {
           title="Datos de pago"
           icon={<MonetizationOnIcon style={{ color: "white" }} />}
         >
-          <Row>
-            <Col xs={12} md={6} lg={4}>
+          <div className="row">
+            <div className="col-lg-4 col-md-6 col-12">
               <FormControl fullWidth sx={{ m: 1 }} variant="filled">
                 <TextField
                   id="valuePay"
@@ -207,8 +203,8 @@ const PaymentForm = () => {
                   }}
                 />
               </FormControl>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </CardContainer>
       </Collapse>
     </>
@@ -219,7 +215,7 @@ export default PaymentForm;
 
 const CardContainer = ({ children, icon, title }: any) => {
   return (
-    <Container className="bg-white shadow-sm rounded px-4 py-3 mb-3">
+    <div className="bg-white shadow-sm rounded px-4 py-3 mb-3 container">
       <div className="d-flex align-items-center">
         <div className="p-2 bg-primary" style={{ marginLeft: "-45px" }}>
           {icon}
@@ -230,7 +226,7 @@ const CardContainer = ({ children, icon, title }: any) => {
       </div>
 
       {children}
-    </Container>
+    </div>
   );
 };
 

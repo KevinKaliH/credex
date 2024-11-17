@@ -7,15 +7,19 @@ import { formSchema } from "@payment/utils/form.schema";
 import PaymentApi from "@/apis/payment.api";
 import usePayment from "@payment/context/payment.context";
 import { useNavigate } from "react-router-dom";
+import useLoadingSpinner from "@/shared/context/loadingSpinner.context";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
 
-  const existClient = usePayment((state) => state.existClient);
-  const btnClicked = usePayment((state) => state.btnClicked);
+  const setVisibleLoading = useLoadingSpinner((s) => s.setVisibleLoading);
+
+  const resetState = usePayment((s) => s.resetState);
   const setSearching = usePayment((s) => s.setSearching);
-  const setVisibleAlert = usePayment((s) => s.setVisibleAlert);
   const setExistClient = usePayment((s) => s.setExistClient);
+  const btnClicked = usePayment((state) => state.btnClicked);
+  const existClient = usePayment((state) => state.existClient);
+  const setVisibleAlert = usePayment((s) => s.setVisibleAlert);
   const setVisibleConfirmModal = usePayment((s) => s.setVisibleConfirmModal);
 
   const validationSchema = useMemo(
@@ -27,26 +31,28 @@ const PaymentFormPageHelper = () => {
     if (btnClicked === "search") await searchEvent(values);
     else if (btnClicked == "showModalConfirm") setVisibleConfirmModal(true);
     else {
-      console.log('here i go');
-      
       await confirmPayment(values);
     }
   };
 
   const searchEvent = async (values: PaymentFormModel) => {
+    setVisibleLoading(true);
     setSearching(true);
     await PaymentApi.searchClient(values);
 
     setVisibleAlert(true);
     setExistClient(true);
     setSearching(false);
+    setVisibleLoading(false);
   };
 
   const confirmPayment = async (values: PaymentFormModel) => {
-    console.log('here i go');
-    
+    setVisibleLoading(true);
+
     await PaymentApi.ConfirmPayment(values);
     setVisibleConfirmModal(false);
+    setVisibleLoading(false);
+    resetState();
     navigate("/bill");
   };
 

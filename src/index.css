@@ -47,3 +47,51 @@ body {
 .header-titles p:first-child {
   padding-left: 0;
 }
+
+/* loading  */
+.wrap-loading {
+  background: rgba(255, 255, 255, 0.6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2500;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  vertical-align: middle;
+  display: none;
+}
+
+.loading-4 {
+  box-sizing: border-box;
+  margin-top: -35px;
+  margin-left: -35px;
+  width: 70px;
+  height: 70px;
+  border: 4px solid #ebebeb;
+  border-top-color: #002980;
+}
+
+.loading {
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: spin 750ms infinite linear;
+  -webkit-animation: spin 750ms infinite linear;
+  -moz-animation: spin 750ms infinite linear;
+  -o-animation: spin 750ms infinite linear;
+  -ms-animation: spin 750ms infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

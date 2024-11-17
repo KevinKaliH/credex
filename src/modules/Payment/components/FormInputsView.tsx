@@ -73,9 +73,12 @@ function formatKeyValue(objectValues: any) {
       else if (key == "currencyId")
         val = CurrencyList.find((i) => i.value == val)!.label;
       else if (key == "targetNumber") val = objectValues["targetNumberMask"];
-      else if (key == "valuePay")
+      else if (key == "valuePay") {
         val =
-          CurrencyList.find((i) => i.value == val)?.data?.prefix + `$ ${val}`;
+          CurrencyList.find((i) => i.value == objectValues["currencyId"])?.data
+            ?.prefix +
+          `$ ${isNaN(Number(val)) ? val : Number(val).toLocaleString()}`;
+      }
 
       return {
         key,

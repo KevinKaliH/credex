@@ -12,6 +12,7 @@ interface IPaymentFormState {
   setSearching: (val: boolean) => void;
   setExistClient: (val: boolean) => void;
   setBtnClicked: (val: string) => void;
+  resetState: () => void;
 }
 
 const initialStatePage: IPaymentFormState = {
@@ -26,6 +27,7 @@ const initialStatePage: IPaymentFormState = {
   setExistClient: () => {},
   setVisibleAlert: () => {},
   setVisibleConfirmModal: () => {},
+  resetState: () => {},
 };
 
 const usePayment = create<IPaymentFormState>((set) => ({
@@ -37,6 +39,7 @@ const usePayment = create<IPaymentFormState>((set) => ({
   setSearching: (value: boolean) => set({ isSearching: value }),
   setExistClient: (value: boolean) => set({ existClient: value }),
   setBtnClicked: (value: string) => set({ btnClicked: value }),
+  resetState: () => set({ ...initialStatePage }),
 }));
 
 export default usePayment;
