@@ -18,7 +18,7 @@ const PaymentBill = () => {
   return (
     <div className="full-height d-flex flex-column">
       <HeaderContainer step={2}>
-        <div>
+        <div className="text-sm-center text-left">
           <Button
             component={Link}
             replace={true}

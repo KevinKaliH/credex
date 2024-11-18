@@ -3,7 +3,11 @@ import { useFormikContext } from "formik";
 import Button from "@mui/material/Button";
 import usePayment from "@payment/context/payment.context";
 
-const HeaderButtons = () => {
+interface Props {
+  isFooter?: boolean;
+}
+
+const HeaderButtons = ({ isFooter = false }: Props) => {
   const formik = useFormikContext();
   const setBtnClicked = usePayment((s) => s.setBtnClicked);
   const existClient = usePayment((s) => s.existClient);
@@ -16,8 +20,12 @@ const HeaderButtons = () => {
   const onClickCancel = () => {};
 
   return (
-    <div className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3">
+    <div
+      className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3"
+      style={{ flexDirection: "column" }}
+    >
       <Button
+        style={{ order: isFooter ? 2 : 1 }}
         variant="text"
         color="primary"
         sx={{ borderRadius: "50px" }}
@@ -30,7 +38,13 @@ const HeaderButtons = () => {
         onClick={onClickConfirm}
         variant="contained"
         color="success"
-        sx={{ borderRadius: "50px", width: "340px" }}
+        sx={{
+          borderRadius: "50px",
+          width: {
+            md: "340px",
+          },
+          order: isFooter ? 1 : 2,
+        }}
       >
         Continuar
       </Button>

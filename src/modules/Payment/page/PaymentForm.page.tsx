@@ -23,19 +23,24 @@ const PaymentFormPage = () => {
         <div className="paymentFormContainer">
           <section className="topbarForm">
             <HeaderContainer step={1}>
-              <HeaderButtons />
+              <div className="d-none d-md-block">
+                <HeaderButtons />
+              </div>
             </HeaderContainer>
           </section>
 
           <section className="leftForm mx-4 mt-3 ms-5">
             <PaymentForm />
+            <div className="d-md-none d-block mb-5">
+              <HeaderButtons isFooter={true} />
+            </div>
           </section>
 
           <Box
             className="rightForm p-3 bg-primary d-none d-md-block"
             sx={{
               width: {
-                sm: '280px',
+                sm: "280px",
                 md: "300px",
               },
             }}

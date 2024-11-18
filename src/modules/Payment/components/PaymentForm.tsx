@@ -178,7 +178,7 @@ const PaymentForm = () => {
               BUSCAR
             </Button>
           </div>
-          <div className="col text-end">
+          <div className="col text-end col-12 col-md-1">
             <ActionFormButtons />
           </div>
         </div>
@@ -211,7 +211,7 @@ const PaymentForm = () => {
                   helperText={form.touched.valuePay && form.errors.valuePay}
                   slotProps={{
                     input: {
-                      value: form.values.valuePay,
+                      value: form.values.valuePay ?? "",
                       startAdornment: (
                         <InputAdornment position="start">
                           {currencyPrefix} $
