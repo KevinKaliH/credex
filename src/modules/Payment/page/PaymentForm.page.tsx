@@ -6,6 +6,7 @@ import PaymentForm from "@payment/components/PaymentForm";
 import FormInputsView from "@payment/components/FormInputsView";
 import HeaderContainer from "@/shared/components/HeaderContainer";
 import HeaderButtons from "@payment/components/HeaderButtons";
+import Box from "@mui/material/Box";
 
 const PaymentFormPage = () => {
   const { onSubmit, InitialFormModal, validationSchema } =
@@ -26,16 +27,21 @@ const PaymentFormPage = () => {
             </HeaderContainer>
           </section>
 
-          <section className="leftForm mx-4 mt-3">
+          <section className="leftForm mx-4 mt-3 ms-5">
             <PaymentForm />
           </section>
 
-          <section
+          <Box
             className="rightForm p-3 bg-primary d-none d-md-block"
-            style={{ minWidth: "400px", maxWidth: "400px" }}
+            sx={{
+              width: {
+                sm: '280px',
+                md: "300px",
+              },
+            }}
           >
             <FormInputsView />
-          </section>
+          </Box>
 
           <ModalConfirmPayment />
         </div>

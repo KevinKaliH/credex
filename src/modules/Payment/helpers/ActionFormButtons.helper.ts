@@ -50,7 +50,6 @@ const ActionFormButtonsHelper = () => {
     onClickClose,
     onClickClear,
     onClickAccept,
-    isDirty: form.dirty,
   };
 };
 

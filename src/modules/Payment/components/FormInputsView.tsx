@@ -52,7 +52,7 @@ const InputVisibleData = () => {
             <p className="text-secondary m-0">{FORM_LABELS[value.key]}</p>
           </Grid2>
           <Grid2 size={6}>
-            <p className="m-0 text-end text-truncate">{value.val}</p>
+            <p className="m-0 text-end text-wrap">{value.val}</p>
           </Grid2>
         </Fragment>
       ))}
