@@ -204,12 +204,14 @@ const PaymentForm = () => {
                   name="valuePay"
                   label="Monto a pagar"
                   variant="filled"
+                  value={form.values.valuePay}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   error={form.touched.valuePay && Boolean(form.errors.valuePay)}
                   helperText={form.touched.valuePay && form.errors.valuePay}
                   slotProps={{
                     input: {
+                      value: form.values.valuePay,
                       startAdornment: (
                         <InputAdornment position="start">
                           {currencyPrefix} $

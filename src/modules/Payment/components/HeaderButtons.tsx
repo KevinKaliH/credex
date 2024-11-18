@@ -29,7 +29,7 @@ const HeaderButtons = () => {
         disabled={!existClient || !formik.isValid}
         onClick={onClickConfirm}
         variant="contained"
-        color="secondary"
+        color="success"
         sx={{ borderRadius: "50px", width: "340px" }}
       >
         Continuar
