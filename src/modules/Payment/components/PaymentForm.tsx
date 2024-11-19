@@ -79,7 +79,7 @@ const PaymentForm = () => {
             <FormControl variant="filled" fullWidth sx={{ m: 1 }}>
               <TextField
                 disabled={existClient}
-                label="Numero de documento"
+                label="Número de documento"
                 name="documentValue"
                 id="documentValue"
                 value={form.values.documentValue}

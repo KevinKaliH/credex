@@ -27,15 +27,29 @@ const DialogClearForm = ({
       onClose={onClickClose}
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle>{"Aviso!"}</DialogTitle>
+      <DialogTitle>{"Aviso"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
           {message}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClickClose}>Cancelar</Button>
-        <Button onClick={onClickAccept}>Aceptar</Button>
+        <Button
+          variant="text"
+          color="primary"
+          sx={{ borderRadius: "50px" }}
+          onClick={onClickClose}
+        >
+          Cancelar
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          sx={{ borderRadius: "50px" }}
+          onClick={onClickAccept}
+        >
+          Aceptar
+        </Button>
       </DialogActions>
     </Dialog>
   );

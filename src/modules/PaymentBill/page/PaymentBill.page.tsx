@@ -25,9 +25,10 @@ const PaymentBill = () => {
             to={EnumAppRoutes.search}
             variant="contained"
             color="primary"
+            sx={{ borderRadius: "50px" }}
             startIcon={<ArrowBackIcon />}
           >
-            Go to Home
+            realizar otra operación
           </Button>
         </div>
       </HeaderContainer>
@@ -52,7 +53,7 @@ const PaymentBill = () => {
           >
             <PrintIcon sx={{ fontSize: 50, color: "blue" }} />
           </div>
-          <p className="mb-0">Transaccion finalizada</p>
+          <p className="mb-0 mt-1">Transacción finalizada</p>
           <p className="fw-bold text-blue fs-4 my-2">2024110120174439200d</p>
           <Button
             variant="contained"

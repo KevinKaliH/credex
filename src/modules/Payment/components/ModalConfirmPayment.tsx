@@ -48,11 +48,11 @@ const ModalConfirmPayment = () => {
             </Button>
             <Button
               variant="contained"
-              color="secondary"
+              color="success"
               sx={{ borderRadius: "50px" }}
               onClick={onClickAcceptModal}
             >
-              Continuar
+              Aceptar
             </Button>
           </div>
         </Box>

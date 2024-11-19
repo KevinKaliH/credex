@@ -14,7 +14,7 @@ export const CARDS_LINKS: ILink[] = [
   { icon: exchangeSvg, label: "Mesa de cambio", link: "/", fill: "green" },
   {
     icon: smartphone,
-    label: "Recargas telefonicas",
+    label: "Recargas telefónicas",
     link: "/",
     fill: "skyBlue",
   },
