@@ -21,7 +21,7 @@ const ActionFormButtons = () => {
         <AutorenewIcon />
       </IconButton>
 
-      <IconButton color="warning" onClick={onClickEdit} disabled={!existClient}>
+      <IconButton className="ms-2" color="warning" onClick={onClickEdit} disabled={!existClient}>
         <EditNoteIcon />
       </IconButton>
       <DialogClearForm

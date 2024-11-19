@@ -178,7 +178,7 @@ const PaymentForm = () => {
               BUSCAR
             </Button>
           </div>
-          <div className="col text-end col-12 col-md-1">
+          <div className="col text-end">
             <ActionFormButtons />
           </div>
         </div>
@@ -236,7 +236,7 @@ const CardContainer = ({ children, icon, title }: any) => {
   return (
     <div className="bg-white shadow-sm rounded px-4 py-3 mb-3 container">
       <div className="d-flex align-items-center">
-        <div className="p-2 bg-primary" style={{ marginLeft: "-45px" }}>
+        <div className="p-2 bg-primary" style={{ marginLeft: "-35px" }}>
           {icon}
         </div>
         <p className="text-uppercase text-primary fw-semibold m-0 ms-3">

@@ -22,7 +22,7 @@ const HeaderButtons = ({ isFooter = false }: Props) => {
   return (
     <div
       className="d-flex gap-2 me-md-3 mt-2 mt-md-0 gap-3"
-      style={{ flexDirection: "column" }}
+      style={{ flexDirection: isFooter ? "column" : "row" }}
     >
       <Button
         style={{ order: isFooter ? 2 : 1 }}

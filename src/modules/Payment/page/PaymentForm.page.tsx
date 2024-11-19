@@ -29,7 +29,7 @@ const PaymentFormPage = () => {
             </HeaderContainer>
           </section>
 
-          <section className="leftForm mx-4 mt-3 ms-5">
+          <section className="leftForm mx-4 mt-3">
             <PaymentForm />
             <div className="d-md-none d-block mb-5">
               <HeaderButtons isFooter={true} />
