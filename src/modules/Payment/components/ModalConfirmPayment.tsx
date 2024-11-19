@@ -27,7 +27,7 @@ const ModalConfirmPayment = () => {
     >
       <Fade in={visibleConfirmModal}>
         <Box sx={style} className="d-grid">
-          <p className="fw-semibold text-uppercase text-primary">
+          <p className="fw-semibold text-uppercase text-blue">
             Confirmacion
           </p>
           <div className="d-flex align-items-center mb-3">

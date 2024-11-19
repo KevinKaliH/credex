@@ -2,6 +2,7 @@ import { useFormikContext } from "formik";
 
 import Button from "@mui/material/Button";
 import usePayment from "@payment/context/payment.context";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 interface Props {
   isFooter?: boolean;
@@ -36,6 +37,7 @@ const HeaderButtons = ({ isFooter = false }: Props) => {
       <Button
         disabled={!existClient || !formik.isValid}
         onClick={onClickConfirm}
+        endIcon={<ArrowForwardIcon />}
         variant="contained"
         color="success"
         sx={{

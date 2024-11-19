@@ -53,7 +53,7 @@ const PaymentBill = () => {
             <PrintIcon sx={{ fontSize: 50, color: "blue" }} />
           </div>
           <p className="mb-0">Transaccion finalizada</p>
-          <p className="fw-bold text-primary fs-4 my-2">2024110120174439200d</p>
+          <p className="fw-bold text-blue fs-4 my-2">2024110120174439200d</p>
           <Button
             variant="contained"
             color="success"

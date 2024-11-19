@@ -37,7 +37,7 @@ const PaymentFormPage = () => {
           </section>
 
           <Box
-            className="rightForm p-3 bg-primary d-none d-md-block"
+            className="rightForm p-3 bg-blue d-none d-md-block"
             sx={{
               width: {
                 sm: "280px",

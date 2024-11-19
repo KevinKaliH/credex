@@ -10,7 +10,11 @@ import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
 import PaymentFormHelper from "@payment/helpers/PaymentForm.helper";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import { CircularProgress, InputAdornment } from "@mui/material";
+import {
+  CircularProgress,
+  FormHelperText,
+  InputAdornment,
+} from "@mui/material";
 import { NumericFormatCustom } from "@payment/components/InputMoney";
 import { TextMaskCustom } from "@payment/components/InputTextMask";
 import InputTargetNumber from "@payment/components/InputTargetNumber";
@@ -66,6 +70,9 @@ const PaymentForm = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {form.touched.docTypeId && form.errors.docTypeId && (
+                <FormHelperText>{form.errors.docTypeId}</FormHelperText>
+              )}
             </FormControl>
           </div>
           <div className="col-lg-4 col-md-6 col-12">
@@ -157,6 +164,9 @@ const PaymentForm = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {form.touched.currencyId && form.errors.currencyId && (
+                <FormHelperText>{form.errors.currencyId}</FormHelperText>
+              )}
             </FormControl>
           </div>
         </div>
@@ -236,12 +246,10 @@ const CardContainer = ({ children, icon, title }: any) => {
   return (
     <div className="bg-white shadow-sm rounded px-4 py-3 mb-3 container">
       <div className="d-flex align-items-center">
-        <div className="p-2 bg-primary" style={{ marginLeft: "-35px" }}>
+        <div className="p-2 bg-blue" style={{ marginLeft: "-35px" }}>
           {icon}
         </div>
-        <p className="text-uppercase text-primary fw-semibold m-0 ms-3">
-          {title}
-        </p>
+        <p className="text-uppercase text-blue fw-semibold m-0 ms-3">{title}</p>
       </div>
 
       {children}

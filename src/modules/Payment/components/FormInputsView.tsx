@@ -11,10 +11,10 @@ import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 
 const FormInputsView = memo(() => {
   return (
-    <section id="viewData bg-primary">
+    <section id="viewData bg-blue">
       <div className="bg-white">
         <div className="border-bottom px-3 py-2">
-          <p className="fw-semibold text-primary m-0">RESUMEN DE TRANSACCIÓN</p>
+          <p className="fw-semibold text-blue m-0">RESUMEN DE TRANSACCIÓN</p>
         </div>
         <div className="p-2">
           <InputVisibleData />
@@ -23,7 +23,7 @@ const FormInputsView = memo(() => {
 
       <div className="bg-white mt-3 grid">
         <div className="border-bottom px-3 py-3">
-          <p className="fw-semibold text-primary m-0">SERVICIO A PAGAR</p>
+          <p className="fw-semibold text-blue m-0">SERVICIO A PAGAR</p>
         </div>
         <div className="p-5 text-center">
           <img
@@ -49,7 +49,7 @@ const InputVisibleData = () => {
       {filteredValues.map((value) => (
         <Fragment key={value.key}>
           <Grid2 size={6}>
-            <p className="text-secondary m-0">{FORM_LABELS[value.key]}</p>
+            <p className="text-black-50 m-0">{FORM_LABELS[value.key]}</p>
           </Grid2>
           <Grid2 size={6}>
             <p className="m-0 text-end text-wrap">{value.val}</p>
