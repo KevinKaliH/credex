@@ -7,10 +7,13 @@ import usePayment from "@payment/context/payment.context";
 
 const PaymentFormHelper = () => {
   const form = useFormikContext<PaymentFormModel>();
-  const existClient = usePayment((s) => s.existClient);
-  const visibleAlert = usePayment((s) => s.visibleAlert);
-  const isSearching = usePayment((s) => s.isSearching);
-  const setBtnClicked = usePayment((s) => s.setBtnClicked);
+  const {
+    isSearching,
+    searchResult,
+    setBtnClicked,
+    visibleAlert,
+    existClient,
+  } = usePayment();
 
   const onClickSearchLocal = () => {
     setBtnClicked("search");
@@ -37,6 +40,7 @@ const PaymentFormHelper = () => {
     form,
     existClient,
     isSearching,
+    searchResult,
     visibleAlert,
     maskDocument,
     currencyPrefix,

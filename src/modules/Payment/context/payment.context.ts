@@ -1,3 +1,7 @@
+import {
+  InitialSearchResponse,
+  SearchResponseVM,
+} from "@/models/core/PaymentView.model";
 import { create } from "zustand";
 
 interface IPaymentFormState {
@@ -7,12 +11,15 @@ interface IPaymentFormState {
   isSearching: boolean;
   btnClicked: string;
 
+  searchResult: SearchResponseVM;
+
   setVisibleAlert: (val: boolean) => void;
   setVisibleConfirmModal: (val: boolean) => void;
   setSearching: (val: boolean) => void;
   setExistClient: (val: boolean) => void;
   setBtnClicked: (val: string) => void;
   resetState: () => void;
+  setSearchResponse: (data: SearchResponseVM) => void;
 }
 
 const initialStatePage: IPaymentFormState = {
@@ -21,6 +28,7 @@ const initialStatePage: IPaymentFormState = {
   isSearching: false,
   visibleAlert: false,
   visibleConfirmModal: false,
+  searchResult: InitialSearchResponse,
 
   setBtnClicked: () => {},
   setSearching: () => {},
@@ -28,6 +36,7 @@ const initialStatePage: IPaymentFormState = {
   setVisibleAlert: () => {},
   setVisibleConfirmModal: () => {},
   resetState: () => {},
+  setSearchResponse: () => {},
 };
 
 const usePayment = create<IPaymentFormState>((set) => ({
@@ -46,7 +55,9 @@ const usePayment = create<IPaymentFormState>((set) => ({
       isSearching: false,
       visibleAlert: false,
       visibleConfirmModal: false,
+      searchResult: InitialSearchResponse,
     }),
+  setSearchResponse: (value: SearchResponseVM) => set({ searchResult: value }),
 }));
 
 export default usePayment;

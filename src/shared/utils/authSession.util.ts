@@ -5,7 +5,7 @@ export class AuthSessionUtil {
     sessionStorage.setItem("user", JSON.stringify(user));
   }
 
-  static getAuthSession(): any | ValidateSessionResponse {
+  static getAuthSession(): null | ValidateSessionResponse {
     const data = sessionStorage.getItem("user");
     if (!data) return null;
     return JSON.parse(data);

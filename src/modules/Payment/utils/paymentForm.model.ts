@@ -4,7 +4,7 @@ export interface PaymentFormModel {
   documentValue: string;
   firstName: string;
   lastName: string;
-  currencyId: number | undefined;
+  currencyId: string | undefined;
   targetNumberMask?: string;
   valuePay?: number;
 }

@@ -1,13 +1,13 @@
 export interface ISelectValue {
   label: string;
-  value: number;
+  value: string | number;
   mask?: string;
   data?: any;
 }
 
 export const TypeDocumentList: ISelectValue[] = [
   {
-    value: 1,
+    value: "CED",
     label: "Cédula de identidad",
     mask: "###-######-####L",
     data: {
@@ -19,12 +19,12 @@ export const TypeDocumentList: ISelectValue[] = [
 
 export const CurrencyList: ISelectValue[] = [
   {
-    value: 1,
+    value: "NIO",
     label: "Cordoba",
     data: { prefix: "NIO" },
   },
   {
-    value: 2,
+    value: "USD",
     label: "Dolar",
     data: { prefix: "USD" },
   },

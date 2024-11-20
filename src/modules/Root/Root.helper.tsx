@@ -1,6 +1,5 @@
-import { AuthApi } from "@/apis/auth.api";
+import AuthService from "@/services/auth.service";
 import { setLoadingGlobal } from "@/shared/context/loadingSpinner.context";
-import { AuthSessionUtil } from "@/shared/utils/authSession.util";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -18,7 +17,7 @@ const RootHelper = () => {
     const a = searchParams.get("a");
     const b = searchParams.get("b");
 
-    validations(a, b)
+    AuthService.validations(a, b)
       .then((resp) => {
         setIsLogged(resp.ok);
       })
@@ -38,29 +37,3 @@ const RootHelper = () => {
 };
 
 export default RootHelper;
-
-async function validations(
-  a: string | null,
-  b: string | null
-): Promise<{ ok: boolean; msg?: string }> {
-  if (!a || !b) return { ok: false };
-
-  const queryResponse = await AuthApi.queryValidateSession(a, b);
-
-  if (queryResponse.status != 200)
-    return { ok: false, msg: "Error al obtener los datos del usuario" };
-
-  const responseData = await queryResponse.json();
-
-  if (responseData.statusApi.statusCodigo != 1001)
-    return {
-      ok: false,
-      msg:
-        "Error al obtener los datos del usuario. " +
-        responseData.statusApi.statusMensaje,
-    };
-
-  // save in localstorage
-  AuthSessionUtil.saveSession(responseData);
-  return { ok: true };
-}

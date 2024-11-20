@@ -14,9 +14,9 @@ export function formSchema(existQuery: boolean) {
       .min(13, "El número debe tener al menos 13 dígitos")
       .max(19, "El número no puede tener más de 19 dígitos"),
 
-    currencyId: yup.number().required("El tipo de la moneda es obligatorio"),
+    currencyId: yup.string().required("El tipo de la moneda es obligatorio"),
 
-    docTypeId: yup.number().required("El tipo de documento es obligatorio"),
+    docTypeId: yup.string().required("El tipo de documento es obligatorio"),
 
     documentValue: yup.string().when("docTypeId", (docTypeId: any, schema) => {
       const selectedDoc = TypeDocumentList.find((i) => i.value == docTypeId);

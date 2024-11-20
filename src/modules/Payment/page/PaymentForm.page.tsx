@@ -41,7 +41,7 @@ const PaymentFormPage = () => {
             sx={{
               width: {
                 sm: "280px",
-                md: "300px",
+                md: "350px",
               },
             }}
           >

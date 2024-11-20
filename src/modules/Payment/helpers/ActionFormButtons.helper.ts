@@ -9,9 +9,8 @@ const ActionFormButtonsHelper = () => {
   const [message, setMessage] = useState("");
   const [referenceId, setReferenceId] = useState("");
 
-  const existClient = usePayment((s) => s.existClient);
-  const setExistClient = usePayment((s) => s.setExistClient);
-  const resetState = usePayment((s) => s.resetState);
+  const { existClient, setExistClient, resetState, setVisibleAlert } =
+    usePayment();
 
   const onClickClear = () => {
     if (!form.dirty) {
@@ -28,6 +27,7 @@ const ActionFormButtonsHelper = () => {
 
   const onClickEdit = () => {
     setExistClient(false);
+    setVisibleAlert(false);
     form.setFieldValue("valuePay", undefined);
   };
 

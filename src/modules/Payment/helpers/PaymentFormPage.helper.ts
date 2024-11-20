@@ -9,19 +9,25 @@ import usePayment from "@payment/context/payment.context";
 import { useNavigate } from "react-router-dom";
 import useLoadingSpinner from "@/shared/context/loadingSpinner.context";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
+import PaymentService from "@/services/payment.service";
+import { ErrorType } from "@/shared/utils/errorType.util";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
 
   const setVisibleLoading = useLoadingSpinner((s) => s.setVisibleLoading);
 
-  const resetState = usePayment((s) => s.resetState);
-  const setSearching = usePayment((s) => s.setSearching);
-  const setExistClient = usePayment((s) => s.setExistClient);
-  const btnClicked = usePayment((state) => state.btnClicked);
-  const existClient = usePayment((state) => state.existClient);
-  const setVisibleAlert = usePayment((s) => s.setVisibleAlert);
-  const setVisibleConfirmModal = usePayment((s) => s.setVisibleConfirmModal);
+  const {
+    resetState,
+    btnClicked,
+    existClient,
+    setSearching,
+    searchResult,
+    setExistClient,
+    setVisibleAlert,
+    setSearchResponse,
+    setVisibleConfirmModal,
+  } = usePayment();
 
   const validationSchema = useMemo(
     () => formSchema(existClient),
@@ -39,12 +45,22 @@ const PaymentFormPageHelper = () => {
   const searchEvent = async (values: PaymentFormModel) => {
     setVisibleLoading(true);
     setSearching(true);
-    await PaymentApi.searchClient(values);
 
-    setVisibleAlert(true);
-    setExistClient(true);
-    setSearching(false);
-    setVisibleLoading(false);
+    try {
+      const response = await PaymentService.search(values);
+
+      setSearchResponse(response);
+      setVisibleAlert(true);
+      setExistClient(response.recordExist);
+    } catch (err: any) {
+      if (err?.message == ErrorType.UNAUTHORIZED) {
+        navigate(EnumAppRoutes.unauthorized, { replace: true });
+        return;
+      }
+    } finally {
+      setSearching(false);
+      setVisibleLoading(false);
+    }
   };
 
   const confirmPayment = async (values: PaymentFormModel) => {

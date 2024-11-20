@@ -10,19 +10,18 @@ import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
 import PaymentFormHelper from "@payment/helpers/PaymentForm.helper";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import {
-  CircularProgress,
-  FormHelperText,
-  InputAdornment,
-} from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import CircularProgress from "@mui/material/CircularProgress";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputAdornment from "@mui/material/InputAdornment";
+import Typography from "@mui/material/Typography";
+
 import { NumericFormatCustom } from "@payment/components/InputMoney";
 import { TextMaskCustom } from "@payment/components/InputTextMask";
 import InputTargetNumber from "@payment/components/InputTargetNumber";
 import Collapse from "@mui/material/Collapse";
 import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import ActionFormButtons from "@payment/components/ActionFormButtons";
 
 const PaymentForm = () => {
@@ -30,6 +29,7 @@ const PaymentForm = () => {
     form,
     existClient,
     isSearching,
+    searchResult,
     maskDocument,
     visibleAlert,
     currencyPrefix,
@@ -56,7 +56,7 @@ const PaymentForm = () => {
             >
               <InputLabel id="docTypeId">Tipo de documento</InputLabel>
               <Select
-                disabled={existClient}
+                disabled={searchResult.recordExist}
                 id="docTypeId"
                 name="docTypeId"
                 labelId="docTypeId"
@@ -194,14 +194,28 @@ const PaymentForm = () => {
         </div>
       </CardContainer>
 
-      <Collapse in={existClient}>
-        {visibleAlert && (
-          <AlertResult
-            severity={existClient ? "success" : "error"}
-            title={existClient ? "Cliente encontrado" : "Cliente no encontrado"}
-          />
-        )}
+      <Collapse in={visibleAlert}>
+        <CardContainer
+          displayTitle={false}
+          title="Resultado busqueda"
+          icon={<ContentPasteSearchIcon style={{ color: "white" }} />}
+        >
+          {!searchResult.recordExist ? (
+            <Alert severity="error">No se encontraron resultados</Alert>
+          ) : (
+            <CardContent className="my-0 p-3 pt-0">
+              <Typography variant="h5" component="div">
+                Client: {searchResult.client}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Description: {searchResult.message}
+              </Typography>
+            </CardContent>
+          )}
+        </CardContainer>
+      </Collapse>
 
+      <Collapse in={existClient}>
         <CardContainer
           title="Datos de pago"
           icon={<MonetizationOnIcon style={{ color: "white" }} />}
@@ -242,47 +256,19 @@ const PaymentForm = () => {
 
 export default PaymentForm;
 
-const CardContainer = ({ children, icon, title }: any) => {
+const CardContainer = ({ children, icon, title, displayIcon = true }: any) => {
   return (
     <div className="bg-white shadow-sm rounded px-4 py-3 mb-3 container">
       <div className="d-flex align-items-center">
-        <div className="p-2 bg-blue" style={{ marginLeft: "-35px" }}>
-          {icon}
-        </div>
+        {displayIcon && (
+          <div className="p-2 bg-blue" style={{ marginLeft: "-35px" }}>
+            {icon}
+          </div>
+        )}
         <p className="text-uppercase text-blue fw-semibold m-0 ms-3">{title}</p>
       </div>
 
       {children}
     </div>
-  );
-};
-
-const AlertResult = ({ title, severity }: { severity: any; title: string }) => {
-  const [collapse, setCollapse] = useState(true);
-
-  const closeMyself = () => {
-    setCollapse(false);
-  };
-
-  return (
-    <Collapse in={collapse}>
-      <Alert
-        variant="filled"
-        severity={severity}
-        sx={{ marginBottom: 2 }}
-        action={
-          <IconButton
-            aria-label="close"
-            color="inherit"
-            size="small"
-            onClick={closeMyself}
-          >
-            <CloseIcon fontSize="inherit" />
-          </IconButton>
-        }
-      >
-        {title}
-      </Alert>
-    </Collapse>
   );
 };
