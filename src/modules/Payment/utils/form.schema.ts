@@ -37,7 +37,10 @@ export function formSchema(existQuery: boolean) {
 
     valuePay: yup.lazy((_) => {
       return existQuery
-        ? yup.number().required("El valor de pago es obligatorio")
+        ? yup
+            .number()
+            .required("El valor de pago es obligatorio")
+            .moreThan(0, "El valor debe ser mayor que 0")
         : yup.number().notRequired();
     }),
   });

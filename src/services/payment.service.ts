@@ -1,5 +1,6 @@
 import PaymentApi from "@/apis/payment.api";
 import { SearchResponseVM } from "@/models/core/PaymentView.model";
+import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 
 export default class PaymentService {
@@ -7,7 +8,7 @@ export default class PaymentService {
     formData: PaymentFormModel
   ): Promise<SearchResponseVM> => {
     const response = await PaymentApi.searchClient(formData);
-    
+
     if (response.error.codError != 0) {
       return {
         success: false,
@@ -30,4 +31,30 @@ export default class PaymentService {
       client,
     };
   };
+
+  static async cashControl(result: RouteParamPaymentBillModel) {
+    let datos = {
+      data: {
+        idTransaccion: result.movimientoTemporalID,
+        iframe: "ifremDrawerRuteador",
+      },
+      transaccion_parte1: [
+        {
+          label: "Servicio",
+          value: result.servicio,
+        },
+      ],
+      transaccion_parte2: [
+        {
+          label: "Total",
+          value: result.amount,
+        },
+      ],
+    };
+
+    window.parent.postMessage(
+      { message: "openEntradaEfectivoProducto", value: datos },
+      "*"
+    );
+  }
 }

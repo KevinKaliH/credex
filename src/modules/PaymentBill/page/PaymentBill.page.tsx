@@ -6,14 +6,15 @@ import { CARDS_LINKS } from "@bill/utils/const";
 import PrintIcon from "@mui/icons-material/Print";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 
 const PaymentBill = () => {
-  const { isVisibleModal, hideModal, showModal } = PaymentBillHelper();
-
-  // if (!locationParams) return <Navigate to={EnumAppRoutes.search} replace={true} />;
+  const { hideModal, showModal, routeParams, voucherPdfUrl, isVisibleModal } =
+    PaymentBillHelper();
+  if (!routeParams)
+    return <Navigate to={EnumAppRoutes.unauthorized} replace={true} />;
 
   return (
     <div className="full-height d-flex flex-column">
@@ -54,7 +55,9 @@ const PaymentBill = () => {
             <PrintIcon sx={{ fontSize: 50, color: "blue" }} />
           </div>
           <p className="mb-0 mt-1">Transacción finalizada</p>
-          <p className="fw-bold text-blue fs-4 my-2">2024110120174439200d</p>
+          <p className="fw-bold text-blue fs-4 my-2">
+            {routeParams.numeroautorizacion}
+          </p>
           <Button
             variant="contained"
             color="success"
@@ -75,9 +78,7 @@ const PaymentBill = () => {
 
       {isVisibleModal && (
         <ViewModalPdf
-          urlPdf={
-            "https://web.stanford.edu/class/cs142/lectures/StateManagement.pdf"
-          }
+          urlPdf={voucherPdfUrl}
           isVisiblePdf={isVisibleModal}
           hideModal={hideModal}
         />

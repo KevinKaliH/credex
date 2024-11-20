@@ -11,6 +11,7 @@ import useLoadingSpinner from "@/shared/context/loadingSpinner.context";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 import PaymentService from "@/services/payment.service";
 import { ErrorType } from "@/shared/utils/errorType.util";
+import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
@@ -53,6 +54,8 @@ const PaymentFormPageHelper = () => {
       setVisibleAlert(true);
       setExistClient(response.recordExist);
     } catch (err: any) {
+      console.log(err);
+
       if (err?.message == ErrorType.UNAUTHORIZED) {
         navigate(EnumAppRoutes.unauthorized, { replace: true });
         return;
@@ -65,12 +68,37 @@ const PaymentFormPageHelper = () => {
 
   const confirmPayment = async (values: PaymentFormModel) => {
     setVisibleLoading(true);
-
-    await PaymentApi.ConfirmPayment(values);
     setVisibleConfirmModal(false);
-    setVisibleLoading(false);
-    resetState();
-    navigate(EnumAppRoutes.bill, { replace: true });
+
+    try {
+      const response = await PaymentApi.ConfirmPayment(
+        values,
+        searchResult.barCode
+      );
+      if (!response) return;
+
+      const first = response.pagos.shift()!;
+      const stateObject: RouteParamPaymentBillModel = {
+        ...first,
+        amount: Number(values.valuePay),
+      };
+
+      navigate(EnumAppRoutes.bill, {
+        replace: true,
+        state: stateObject,
+        preventScrollReset: false,
+      });
+      resetState();
+    } catch (err: any) {
+      console.log(err);
+
+      if (err?.message == ErrorType.UNAUTHORIZED) {
+        navigate(EnumAppRoutes.unauthorized, { replace: true });
+        return;
+      }
+    } finally {
+      setVisibleLoading(false);
+    }
   };
 
   return {

@@ -1,14 +1,21 @@
+import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const PaymentBillHelper = () => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const { state: locationParams } = useLocation();
+
+  const locationRoute = useLocation();
+  const routeParams = locationRoute.state as RouteParamPaymentBillModel;
+
+  const voucherPdfUrl = routeParams
+    ? `data:application/pdf;base64,${routeParams.ticketpagoPDF}`
+    : "";
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsVisibleModal(true);
-    }, 2000);
+    if (routeParams) {
+      console.log("voucherPdfUrl", voucherPdfUrl);
+    }
   }, []);
 
   const showModal = () => {
@@ -20,8 +27,9 @@ const PaymentBillHelper = () => {
   };
 
   return {
-    locationParams,
     isVisibleModal,
+    voucherPdfUrl,
+    routeParams,
     hideModal,
     showModal,
   };

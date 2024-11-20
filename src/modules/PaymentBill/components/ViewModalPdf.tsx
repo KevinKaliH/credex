@@ -19,7 +19,7 @@ const ViewModalPdf = ({ urlPdf, isVisiblePdf, hideModal }: Props) => {
       fullWidth={true}
     >
       <DialogTitle>
-        Comprobante de pago
+        Comprobante de transacción
         <IconButton
           edge="end"
           color="inherit"
