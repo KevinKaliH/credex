@@ -12,11 +12,12 @@ import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 import PaymentService from "@/services/payment.service";
 import { ErrorType } from "@/shared/utils/errorType.util";
 import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
+import { setVisibleModalGlobal } from "@/shared/context/modalAdvise.context";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
-
   const setVisibleLoading = useLoadingSpinner((s) => s.setVisibleLoading);
+  const setVisibleGlobalModal = setVisibleModalGlobal();
 
   const {
     resetState,
@@ -50,16 +51,24 @@ const PaymentFormPageHelper = () => {
     try {
       const response = await PaymentService.search(values);
 
+      if (!response.success) {
+        setVisibleGlobalModal(true, {
+          message: response.message ?? "Error servidor",
+        });
+      }
+
       setSearchResponse(response);
       setVisibleAlert(true);
       setExistClient(response.recordExist);
     } catch (err: any) {
-      console.log(err);
-
       if (err?.message == ErrorType.UNAUTHORIZED) {
         navigate(EnumAppRoutes.unauthorized, { replace: true });
         return;
       }
+
+      setVisibleGlobalModal(true, {
+        message: "Ocurrió un error inesperado",
+      });
     } finally {
       setSearching(false);
       setVisibleLoading(false);
@@ -91,11 +100,14 @@ const PaymentFormPageHelper = () => {
       resetState();
     } catch (err: any) {
       console.log(err);
-
       if (err?.message == ErrorType.UNAUTHORIZED) {
         navigate(EnumAppRoutes.unauthorized, { replace: true });
         return;
       }
+
+      setVisibleGlobalModal(true, {
+        message: "Ocurrió un error inesperado",
+      });
     } finally {
       setVisibleLoading(false);
     }

@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes/router";
 import { createTheme, ThemeProvider } from "@mui/material";
 import LoadingSpinner from "./shared/components/LoadingSpinner";
+import ModalAdvise from "./shared/components/ModalAdvise";
 
 const theme = createTheme({
   palette: {
@@ -30,6 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
       <LoadingSpinner />
+      <ModalAdvise />
     </ThemeProvider>
   );
 }

@@ -18,7 +18,9 @@ const HeaderButtons = ({ isFooter = false }: Props) => {
     formik.submitForm();
   };
 
-  const onClickCancel = () => {};
+  const onClickCancel = () => {
+    window.parent.history.back();
+  };
 
   return (
     <div

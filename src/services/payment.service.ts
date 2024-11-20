@@ -26,7 +26,7 @@ export default class PaymentService {
     return {
       barCode: barCode ?? "",
       message: message ?? "",
-      recordExist: true,
+      recordExist: !!firstResult,
       success: true,
       client,
     };

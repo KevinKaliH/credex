@@ -1,4 +1,5 @@
 import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
+import PaymentService from "@/services/payment.service";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -14,7 +15,7 @@ const PaymentBillHelper = () => {
 
   useEffect(() => {
     if (routeParams) {
-      console.log("voucherPdfUrl", voucherPdfUrl);
+      PaymentService.cashControl(routeParams);
     }
   }, []);
 
