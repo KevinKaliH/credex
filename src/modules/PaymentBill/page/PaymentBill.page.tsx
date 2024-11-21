@@ -2,19 +2,21 @@ import HeaderContainer from "@/shared/components/HeaderContainer";
 import CardLinkTemplate from "@bill/components/CardLinkTemplate";
 import ViewModalPdf from "@bill/components/ViewModalPdf";
 import PaymentBillHelper from "@bill/helpers/PaymentBill.helper";
-import { CARDS_LINKS } from "@bill/utils/const";
 import PrintIcon from "@mui/icons-material/Print";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLoaderData } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
+import { ILink } from "@/models/core/common.model";
 
 const PaymentBill = () => {
   const { hideModal, showModal, routeParams, voucherPdfUrl, isVisibleModal } =
     PaymentBillHelper();
   if (!routeParams)
     return <Navigate to={EnumAppRoutes.unauthorized} replace={true} />;
+
+  const links = useLoaderData() as ILink[];
 
   return (
     <div className="full-height d-flex flex-column">
@@ -70,7 +72,7 @@ const PaymentBill = () => {
         </Box>
 
         <div className="d-flex flex-wrap gap-5 justify-content-center w-100 mb-3">
-          {CARDS_LINKS.map((item, index) => (
+          {links.map((item, index) => (
             <CardLinkTemplate key={index.toString()} value={item} />
           ))}
         </div>

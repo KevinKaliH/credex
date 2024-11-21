@@ -2,8 +2,9 @@ import { useFormikContext } from "formik";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useMemo } from "react";
-import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
 import usePayment from "@payment/context/payment.context";
+import { useLoaderData } from "react-router-dom";
+import { PaymentLoadData } from "@/models/core/PaymentView.model";
 
 const PaymentFormHelper = () => {
   const form = useFormikContext<PaymentFormModel>();
@@ -14,6 +15,7 @@ const PaymentFormHelper = () => {
     visibleAlert,
     existClient,
   } = usePayment();
+  const { currencyList, typeDocumentList } = useLoaderData() as PaymentLoadData;
 
   const onClickSearchLocal = () => {
     setBtnClicked("search");
@@ -27,12 +29,12 @@ const PaymentFormHelper = () => {
 
   const currencyPrefix = useMemo(
     () =>
-      CurrencyList.find((i) => i.value == form.values.currencyId)?.data.prefix,
+      currencyList.find((i) => i.value == form.values.currencyId)?.data.prefix,
     [form.values.currencyId]
   );
 
   const maskDocument = useMemo(
-    () => TypeDocumentList.find((i) => i.value == form.values.docTypeId)?.mask,
+    () => typeDocumentList.find((i) => i.value == form.values.docTypeId)?.mask,
     [form.values.docTypeId]
   );
 
@@ -43,7 +45,9 @@ const PaymentFormHelper = () => {
     searchResult,
     visibleAlert,
     maskDocument,
+    currencyList,
     currencyPrefix,
+    typeDocumentList,
     onChangeDocTypeId,
     onClickSearchLocal,
   };

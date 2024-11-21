@@ -1,4 +1,4 @@
-import { ILink } from "@bill/utils/const";
+import { ILink } from "@/models/core/common.model";
 import Button from "@mui/material/Button";
 
 const CardLinkTemplate = ({ value }: { value: ILink }) => {

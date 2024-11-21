@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import SearchIcon from "@mui/icons-material/Search";
-import { CurrencyList, TypeDocumentList } from "@payment/utils/const";
 import PaymentFormHelper from "@payment/helpers/PaymentForm.helper";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -32,7 +31,9 @@ const PaymentForm = () => {
     searchResult,
     maskDocument,
     visibleAlert,
+    currencyList,
     currencyPrefix,
+    typeDocumentList,
     onChangeDocTypeId,
     onClickSearchLocal,
   } = PaymentFormHelper();
@@ -64,7 +65,7 @@ const PaymentForm = () => {
                 onChange={onChangeDocTypeId}
                 onBlur={form.handleBlur}
               >
-                {TypeDocumentList.map((value) => (
+                {typeDocumentList.map((value) => (
                   <MenuItem key={value.value} value={value.value}>
                     {value.label}
                   </MenuItem>
@@ -158,7 +159,7 @@ const PaymentForm = () => {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               >
-                {CurrencyList.map((value) => (
+                {currencyList.map((value) => (
                   <MenuItem key={value.value} value={value.value}>
                     {value.label}
                   </MenuItem>

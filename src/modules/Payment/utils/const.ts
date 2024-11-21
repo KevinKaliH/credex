@@ -1,35 +1,3 @@
-export interface ISelectValue {
-  label: string;
-  value: string | number;
-  mask?: string;
-  data?: any;
-}
-
-export const TypeDocumentList: ISelectValue[] = [
-  {
-    value: "CED",
-    label: "Cédula de identidad",
-    mask: "###-######-####L",
-    data: {
-      regex: /^\d{3}-\d{6}-\d{4}[A-Za-z]$/,
-      errorMessage: "Ejemplo valor: 001-000000-0000A",
-    },
-  },
-];
-
-export const CurrencyList: ISelectValue[] = [
-  {
-    value: "NIO",
-    label: "Cordoba",
-    data: { prefix: "NIO" },
-  },
-  {
-    value: "USD",
-    label: "Dolar",
-    data: { prefix: "USD" },
-  },
-];
-
 export const NUMBER_TARGET_SHOW_CHARS = 4;
 
 export const FORM_LABELS: { [key: string]: string } = {

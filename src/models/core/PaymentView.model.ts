@@ -1,3 +1,5 @@
+import { ISelectValue } from "./common.model";
+
 export interface SearchResponseVM {
   recordExist: boolean;
   message: string;
@@ -14,3 +16,8 @@ export const InitialSearchResponse: SearchResponseVM = {
   client: "",
 };
 Object.freeze(InitialSearchResponse);
+
+export interface PaymentLoadData {
+  currencyList: ISelectValue[];
+  typeDocumentList: ISelectValue[];
+}

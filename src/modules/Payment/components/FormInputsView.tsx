@@ -1,13 +1,11 @@
 import { useFormikContext } from "formik";
 import { Fragment } from "react/jsx-runtime";
-import {
-  CurrencyList,
-  FORM_LABELS,
-  TypeDocumentList,
-} from "@payment/utils/const";
+import { FORM_LABELS } from "@payment/utils/const";
 import Grid2 from "@mui/material/Grid2";
 import { memo, useMemo } from "react";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
+import { useLoaderData } from "react-router-dom";
+import { PaymentLoadData } from "@/models/core/PaymentView.model";
 
 const FormInputsView = memo(() => {
   return (
@@ -61,6 +59,8 @@ const InputVisibleData = () => {
 };
 
 function formatKeyValue(objectValues: any) {
+  const { currencyList, typeDocumentList } = useLoaderData() as PaymentLoadData;
+
   return Object.entries(objectValues ?? {})
     .filter(
       ([_, value]) => value !== null && value !== "" && value !== undefined
@@ -69,13 +69,13 @@ function formatKeyValue(objectValues: any) {
       let { "0": key, "1": val } = value;
 
       if (key == "docTypeId")
-        val = TypeDocumentList.find((i) => i.value == val)!.label;
+        val = typeDocumentList.find((i) => i.value == val)!.label;
       else if (key == "currencyId")
-        val = CurrencyList.find((i) => i.value == val)!.label;
+        val = currencyList.find((i) => i.value == val)!.label;
       else if (key == "targetNumber") val = objectValues["targetNumberMask"];
       else if (key == "valuePay") {
         val =
-          CurrencyList.find((i) => i.value == objectValues["currencyId"])?.data
+          currencyList.find((i) => i.value == objectValues["currencyId"])?.data
             ?.prefix +
           `$ ${isNaN(Number(val)) ? val : Number(val).toLocaleString()}`;
       }

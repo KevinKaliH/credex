@@ -1,7 +1,10 @@
+import { ISelectValue } from "@/models/core/common.model";
 import * as yup from "yup";
-import { TypeDocumentList } from "@payment/utils/const";
 
-export function formSchema(existQuery: boolean) {
+export function formSchema(
+  existQuery: boolean,
+  typeDocumentList: ISelectValue[]
+) {
   return yup.object({
     targetNumber: yup
       .string()
@@ -19,7 +22,7 @@ export function formSchema(existQuery: boolean) {
     docTypeId: yup.string().required("El tipo de documento es obligatorio"),
 
     documentValue: yup.string().when("docTypeId", (docTypeId: any, schema) => {
-      const selectedDoc = TypeDocumentList.find((i) => i.value == docTypeId);
+      const selectedDoc = typeDocumentList.find((i) => i.value == docTypeId);
       if (!selectedDoc)
         return schema.required("El valor del documento es obligatorio");
 

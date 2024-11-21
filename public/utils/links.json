@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "/icons/exchange.svg",
+    "label": "Mesa de cambio",
+    "link": "/",
+    "fill": "green"
+  },
+  {
+    "icon": "/icons/smartphone.svg",
+    "label": "Recargas telefónicas",
+    "link": "/",
+    "fill": "skyBlue"
+  },
+  {
+    "icon": "/icons/billWallet.svg",
+    "label": "Pago de servicios",
+    "link": "/",
+    "fill": "orange"
+  },
+  {
+    "icon": "/icons/wallet.svg",
+    "label": "Recarga de billetera",
+    "link": "/",
+    "fill": "blue"
+  }
+]

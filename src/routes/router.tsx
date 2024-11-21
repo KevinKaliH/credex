@@ -4,6 +4,8 @@ import Unauthorized from "@/shared/pages/Unauthorized";
 import LoadingPageRoute from "@/shared/components/LoadingPageRoute";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 import RootPage from "@/modules/Root/Root.page";
+import searchLoader from "./loaders/search.loader";
+import billLoader from "./loaders/bill.loader";
 
 const PaymentFormPage = lazy(
   () => import("@/modules/Payment/page/PaymentForm.page")
@@ -19,6 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: EnumAppRoutes.search,
+    loader: searchLoader,
     element: (
       <LoadingPageRoute>
         <PaymentFormPage />
@@ -27,6 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: EnumAppRoutes.bill,
+    loader: billLoader,
     element: (
       <LoadingPageRoute>
         <PaymentBillPage />

@@ -6,19 +6,20 @@ import { useMemo } from "react";
 import { formSchema } from "@payment/utils/form.schema";
 import PaymentApi from "@/apis/payment.api";
 import usePayment from "@payment/context/payment.context";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useLoadingSpinner from "@/shared/context/loadingSpinner.context";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 import PaymentService from "@/services/payment.service";
 import { ErrorType } from "@/shared/utils/errorType.util";
 import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
 import { setVisibleModalGlobal } from "@/shared/context/modalAdvise.context";
+import { PaymentLoadData } from "@/models/core/PaymentView.model";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
   const setVisibleLoading = useLoadingSpinner((s) => s.setVisibleLoading);
   const setVisibleGlobalModal = setVisibleModalGlobal();
-
+  const { typeDocumentList } = useLoaderData() as PaymentLoadData;
   const {
     resetState,
     btnClicked,
@@ -32,7 +33,7 @@ const PaymentFormPageHelper = () => {
   } = usePayment();
 
   const validationSchema = useMemo(
-    () => formSchema(existClient),
+    () => formSchema(existClient, typeDocumentList),
     [existClient]
   );
 

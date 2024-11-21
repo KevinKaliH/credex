@@ -1,0 +1,16 @@
+[
+  {
+    "value": "NIO",
+    "label": "Cordoba",
+    "data": {
+      "prefix": "NIO"
+    }
+  },
+  {
+    "value": "USD",
+    "label": "Dolar",
+    "data": {
+      "prefix": "USD"
+    }
+  }
+]
