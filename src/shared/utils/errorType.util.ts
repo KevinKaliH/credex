@@ -1,4 +1,4 @@
 export enum ErrorType {
-    UNAUTHORIZED,
-    SERVER_ERROR
+    UNAUTHORIZED = "unauthorized",
+    SERVER_ERROR = "server_error"
 }

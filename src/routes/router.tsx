@@ -39,7 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to="unauthorized" replace />,
+    element: <Navigate to={EnumAppRoutes.unauthorized} replace />,
   },
 ]);
 

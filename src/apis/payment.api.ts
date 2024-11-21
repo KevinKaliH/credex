@@ -2,6 +2,7 @@ import { PayRequestAirkpak } from "@/models/request/PayRequestAirkpak";
 import { BaseResponsePayAirkpak } from "@/models/response/BaseResponsePayAirkpak";
 import { BaseSuccessQueryResponseModel } from "@/models/response/BaseSuccessQueryResponseModel";
 import { AuthSessionUtil } from "@/shared/utils/authSession.util";
+import { ErrorType } from "@/shared/utils/errorType.util";
 import { EnumUrlCatalogsPaths } from "@/shared/utils/urlPaths.utl";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 
@@ -9,7 +10,7 @@ async function searchClient(
   formData: PaymentFormModel
 ): Promise<BaseSuccessQueryResponseModel> {
   const sessionData = AuthSessionUtil.getAuthSession();
-  if (sessionData == null) throw new Error("UNAUTHORIZED");
+  if (sessionData == null) throw new Error(ErrorType.UNAUTHORIZED);
 
   const filtros = [
     {
@@ -60,8 +61,9 @@ async function searchClient(
     },
   });
 
-  if (response.status == 401) throw new Error("UNAUTHORIZED");
-  if (response.status == 500) throw new Error("SERVER_ERROR");
+  if (response.status == 401) throw new Error(ErrorType.UNAUTHORIZED);
+  if (response.status == 500)
+    throw new Error(ErrorType.SERVER_ERROR);
 
   return await response.json();
 }
@@ -71,7 +73,7 @@ async function ConfirmPayment(
   barCode: string
 ): Promise<BaseResponsePayAirkpak> {
   const sessionData = AuthSessionUtil.getAuthSession();
-  if (sessionData == null) throw new Error("UNAUTHORIZED");
+  if (sessionData == null) throw new Error(ErrorType.UNAUTHORIZED);
 
   const currencyCodes = window.__env__[formData.currencyId!];
 
@@ -126,8 +128,8 @@ async function ConfirmPayment(
     },
   });
 
-  if (response.status == 401) throw new Error("UNAUTHORIZED");
-  if (response.status == 500) throw new Error("SERVER_ERROR");
+  if (response.status == 401) throw new Error(ErrorType.UNAUTHORIZED);
+  if (response.status == 500) throw new Error(ErrorType.SERVER_ERROR);
 
   return await response.json();
 }
