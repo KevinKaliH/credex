@@ -14,6 +14,7 @@ import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill
 import { setVisibleModalGlobal } from "@/shared/context/modalAdvise.context";
 import { PaymentLoadData } from "@/models/core/PaymentView.model";
 import { CustomException } from "@/shared/utils/customException.util";
+import { MESSAGES } from "@/shared/utils/messages.util";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
@@ -52,8 +53,6 @@ const PaymentFormPageHelper = () => {
     try {
       const response = await PaymentService.search(values);
 
-      console.log(response);
-      
       setSearchResponse(response);
       setVisibleAlert(true);
       setExistClient(response.recordExist);
@@ -64,7 +63,7 @@ const PaymentFormPageHelper = () => {
       }
 
       setVisibleGlobalModal(true, {
-        message: err.message ?? "Ocurrió un error inesperado",
+        message: err.message ?? MESSAGES.unexpectedError,
       });
     } finally {
       setSearching(false);
@@ -103,7 +102,7 @@ const PaymentFormPageHelper = () => {
       }
 
       setVisibleGlobalModal(true, {
-        message: message ?? "Ocurrió un error inesperado",
+        message: message ?? MESSAGES.unexpectedError,
       });
     } finally {
       setVisibleLoading(false);

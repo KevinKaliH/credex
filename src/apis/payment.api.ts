@@ -58,9 +58,7 @@ async function searchClient(
   const url =
     window?.__env__?.VITE_API_AIRPAK + EnumUrlCatalogsPaths.airpakQuery;
 
-  const data = await fetchCall(url, body, sessionData.token);
-  console.log(data)
-  return data;
+  return await fetchCall(url, body, sessionData.token);
 }
 
 async function ConfirmPayment(

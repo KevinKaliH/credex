@@ -202,9 +202,7 @@ const PaymentForm = () => {
           icon={<ContentPasteSearchIcon style={{ color: "white" }} />}
         >
           {!searchResult.recordExist ? (
-            <Alert severity="error">
-              {searchResult.message ?? "No se encontraron resultados"}
-            </Alert>
+            <Alert severity="error">{searchResult.message}</Alert>
           ) : (
             <CardContent className="my-0 p-3 pt-0">
               <Typography variant="h5" component="div">

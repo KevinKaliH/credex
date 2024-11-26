@@ -1,6 +1,7 @@
 import PaymentApi from "@/apis/payment.api";
 import { SearchResponseVM } from "@/models/core/PaymentView.model";
 import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
+import { MESSAGES } from "@/shared/utils/messages.util";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 
 export default class PaymentService {
@@ -23,13 +24,11 @@ export default class PaymentService {
         client,
       };
     } catch (err: any) {
-      console.log(err);
-
       if (err?.type == "NOTFOUND")
         return {
           success: false,
           barCode: "",
-          message: err.message,
+          message: err.message ?? MESSAGES.noData,
           recordExist: false,
         };
 
