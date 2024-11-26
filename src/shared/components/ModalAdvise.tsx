@@ -20,7 +20,8 @@ const ModalAdvise = () => {
       open={visible}
       keepMounted
       onClose={onClickAccept}
-      maxWidth="md"
+      maxWidth="sm"
+      fullWidth
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle>{title ?? "Aviso"}</DialogTitle>

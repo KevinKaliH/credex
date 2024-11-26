@@ -10,10 +10,10 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import useLoadingSpinner from "@/shared/context/loadingSpinner.context";
 import { EnumAppRoutes } from "@/shared/utils/urlPaths.utl";
 import PaymentService from "@/services/payment.service";
-import { ErrorType } from "@/shared/utils/errorType.util";
 import { RouteParamPaymentBillModel } from "@/models/core/routeParamsPaymentBill.model";
 import { setVisibleModalGlobal } from "@/shared/context/modalAdvise.context";
 import { PaymentLoadData } from "@/models/core/PaymentView.model";
+import { CustomException } from "@/shared/utils/customException.util";
 
 const PaymentFormPageHelper = () => {
   const navigate = useNavigate();
@@ -52,23 +52,19 @@ const PaymentFormPageHelper = () => {
     try {
       const response = await PaymentService.search(values);
 
-      if (!response.success) {
-        setVisibleGlobalModal(true, {
-          message: response.message ?? "Error servidor",
-        });
-      }
-
+      console.log(response);
+      
       setSearchResponse(response);
       setVisibleAlert(true);
       setExistClient(response.recordExist);
     } catch (err: any) {
-      if (err?.message == ErrorType.UNAUTHORIZED) {
+      if (err?.type == "UNAUTHORIZED") {
         navigate(EnumAppRoutes.unauthorized, { replace: true });
         return;
       }
 
       setVisibleGlobalModal(true, {
-        message: "Ocurrió un error inesperado",
+        message: err.message ?? "Ocurrió un error inesperado",
       });
     } finally {
       setSearching(false);
@@ -100,14 +96,14 @@ const PaymentFormPageHelper = () => {
       });
       resetState();
     } catch (err: any) {
-      console.log(err);
-      if (err?.message == ErrorType.UNAUTHORIZED) {
+      const { type, message } = err as CustomException;
+      if (type == "UNAUTHORIZED") {
         navigate(EnumAppRoutes.unauthorized, { replace: true });
         return;
       }
 
       setVisibleGlobalModal(true, {
-        message: "Ocurrió un error inesperado",
+        message: message ?? "Ocurrió un error inesperado",
       });
     } finally {
       setVisibleLoading(false);

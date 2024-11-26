@@ -7,29 +7,34 @@ export default class PaymentService {
   static search = async (
     formData: PaymentFormModel
   ): Promise<SearchResponseVM> => {
-    const response = await PaymentApi.searchClient(formData);
+    try {
+      const response = await PaymentApi.searchClient(formData);
 
-    if (response.error.codError != 0) {
+      const firstResult = response.resultado.shift();
+      const barCode = firstResult?.codigoBarra.shift()?.valor;
+      const message = firstResult?.descripcionFactura.shift()?.valor;
+      const client = firstResult?.nombreCliente;
+
       return {
-        success: false,
-        barCode: "",
-        message: response.error.mensajeUsuario,
-        recordExist: false,
+        barCode: barCode ?? "",
+        message: message ?? "",
+        recordExist: !!firstResult,
+        success: true,
+        client,
       };
+    } catch (err: any) {
+      console.log(err);
+
+      if (err?.type == "NOTFOUND")
+        return {
+          success: false,
+          barCode: "",
+          message: err.message,
+          recordExist: false,
+        };
+
+      throw err;
     }
-
-    const firstResult = response.resultado.shift();
-    const barCode = firstResult?.codigoBarra.shift()?.valor;
-    const message = firstResult?.descripcionFactura.shift()?.valor;
-    const client = firstResult?.nombreCliente;
-
-    return {
-      barCode: barCode ?? "",
-      message: message ?? "",
-      recordExist: !!firstResult,
-      success: true,
-      client,
-    };
   };
 
   static async cashControl(result: RouteParamPaymentBillModel) {

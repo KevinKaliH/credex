@@ -1,8 +1,14 @@
 import { PayRequestAirkpak } from "@/models/request/PayRequestAirkpak";
 import { BaseResponsePayAirkpak } from "@/models/response/BaseResponsePayAirkpak";
-import { BaseSuccessQueryResponseModel } from "@/models/response/BaseSuccessQueryResponseModel";
+import {
+  BaseBadQueryResponseModel,
+  BaseSuccessQueryResponseModel,
+} from "@/models/response/BaseSuccessQueryResponseModel";
 import { AuthSessionUtil } from "@/shared/utils/authSession.util";
-import { ErrorType } from "@/shared/utils/errorType.util";
+import {
+  CustomException,
+  TypeException,
+} from "@/shared/utils/customException.util";
 import { EnumUrlCatalogsPaths } from "@/shared/utils/urlPaths.utl";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 
@@ -10,7 +16,7 @@ async function searchClient(
   formData: PaymentFormModel
 ): Promise<BaseSuccessQueryResponseModel> {
   const sessionData = AuthSessionUtil.getAuthSession();
-  if (sessionData == null) throw new Error(ErrorType.UNAUTHORIZED);
+  if (sessionData == null) throw new CustomException("", "UNAUTHORIZED");
 
   const filtros = [
     {
@@ -37,7 +43,7 @@ async function searchClient(
 
   const currencyCodes = window.__env__[formData.currencyId!];
 
-  const body = JSON.stringify({
+  const body = {
     usuario: sessionData.sesionUsuario.id,
     codigoServicio: currencyCodes.COD_SER,
     codigoServicioReferencia: currencyCodes.COD_SER_REF,
@@ -47,25 +53,14 @@ async function searchClient(
     type: "",
     filtros,
     fieldsPE: [],
-  });
+  };
 
   const url =
     window?.__env__?.VITE_API_AIRPAK + EnumUrlCatalogsPaths.airpakQuery;
 
-  const response = await fetch(url, {
-    method: "POST",
-    body,
-    headers: {
-      Authorization: `Bearer ${sessionData.token}`,
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status == 401) throw new Error(ErrorType.UNAUTHORIZED);
-  if (response.status == 500)
-    throw new Error(ErrorType.SERVER_ERROR);
-
-  return await response.json();
+  const data = await fetchCall(url, body, sessionData.token);
+  console.log(data)
+  return data;
 }
 
 async function ConfirmPayment(
@@ -73,7 +68,7 @@ async function ConfirmPayment(
   barCode: string
 ): Promise<BaseResponsePayAirkpak> {
   const sessionData = AuthSessionUtil.getAuthSession();
-  if (sessionData == null) throw new Error(ErrorType.UNAUTHORIZED);
+  if (sessionData == null) throw new CustomException("", "UNAUTHORIZED");
 
   const currencyCodes = window.__env__[formData.currencyId!];
 
@@ -119,17 +114,28 @@ async function ConfirmPayment(
   const url =
     window.__env__.VITE_API_AIRPAK + EnumUrlCatalogsPaths.airpakPayment;
 
+  return await fetchCall(url, body, sessionData.token);
+}
+
+async function fetchCall(url: string, body: any, bearerToken: string) {
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
-      Authorization: `Bearer ${sessionData.token}`,
+      Authorization: `Bearer ${bearerToken}`,
       "Content-Type": "application/json",
     },
   });
 
-  if (response.status == 401) throw new Error(ErrorType.UNAUTHORIZED);
-  if (response.status == 500) throw new Error(ErrorType.SERVER_ERROR);
+  if (!response.ok) {
+    const data = (await response.json()) as BaseBadQueryResponseModel;
+
+    let typeError: TypeException = "BAD_REQUEST";
+    if (response.status == 401) typeError = "UNAUTHORIZED";
+    if (response.status == 400) typeError = "NOTFOUND";
+
+    throw new CustomException(data.mensajeUsuario, typeError);
+  }
 
   return await response.json();
 }

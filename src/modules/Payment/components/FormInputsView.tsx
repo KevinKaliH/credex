@@ -2,12 +2,11 @@ import { useFormikContext } from "formik";
 import { Fragment } from "react/jsx-runtime";
 import { FORM_LABELS } from "@payment/utils/const";
 import Grid2 from "@mui/material/Grid2";
-import { memo, useMemo } from "react";
 import { PaymentFormModel } from "@payment/utils/paymentForm.model";
 import { useLoaderData } from "react-router-dom";
 import { PaymentLoadData } from "@/models/core/PaymentView.model";
 
-const FormInputsView = memo(() => {
+const FormInputsView = () => {
   return (
     <section id="viewData bg-blue">
       <div className="bg-white">
@@ -33,14 +32,13 @@ const FormInputsView = memo(() => {
       </div>
     </section>
   );
-});
+};
 
 export default FormInputsView;
 
 const InputVisibleData = () => {
   const { values } = useFormikContext<PaymentFormModel>();
-
-  const filteredValues = useMemo(() => formatKeyValue(values), [values]);
+  const filteredValues = formatKeyValue(values);
 
   return (
     <Grid2 container rowSpacing={1} columnSpacing={1}>
